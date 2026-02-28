@@ -359,7 +359,7 @@
             href="https://bluerobotics.com"
             style="text-decoration:none;"
           >
-            Blue Robotics
+            Coratia Technologies
           </a>
         </span>
       </v-container>
