@@ -5,41 +5,45 @@
         size="35px"
         directory="/userdata/images/vehicle"
         :readonly-files="['/assets/vehicles/images/bluerov2.png', '/assets/vehicles/images/bb120.png']"
-        <!-- :default-image="require('@/assets/vehicles/images/unknown.svg')" -->
+        <!--
+        :default-image="require('@/assets/vehicles/images/unknown.svg')"
+        --
+      >
         <!--! ===== Changed the default image ===== -->
         :default-image="require('@/assets/vehicles/images/bluerov2.svg')"
         :image="vehicle_image"
         @image-selected="save_vehicle_image"
-      />
-      <p id="vehicle-name" class="pa-0 pl-5 primary--text font-italic" style="max-width: 120px;">
-        {{ vehicle_name }}
-        <span
-          v-if="system_id !== 1"
-          :title="`System ID: ${system_id}`"
-          class="subtitle-1 text--secondary"
-        >
-          ({{ system_id }})
-        </span>
-        <v-btn
-          class="mx-2 edit-icon"
-          fab
-          dark
-          x-small
-          @click="openDialog"
-        >
-          <v-icon>
-            mdi-pencil
-          </v-icon>
-        </v-btn>
-      </p>
-      <v-spacer />
-      <image-picker
-        size="35px"
-        directory="/userdata/images/logo"
-        :default-image="require('@/assets/img/blue-robotics-logo.svg')"
-        :image="logo_image"
-        @image-selected="save_logo"
-      />
+        />
+        <p id="vehicle-name" class="pa-0 pl-5 primary--text font-italic" style="max-width: 120px;">
+          {{ vehicle_name }}
+          <span
+            v-if="system_id !== 1"
+            :title="`System ID: ${system_id}`"
+            class="subtitle-1 text--secondary"
+          >
+            ({{ system_id }})
+          </span>
+          <v-btn
+            class="mx-2 edit-icon"
+            fab
+            dark
+            x-small
+            @click="openDialog"
+          >
+            <v-icon>
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+        </p>
+        <v-spacer />
+        <image-picker
+          size="35px"
+          directory="/userdata/images/logo"
+          :default-image="require('@/assets/img/blue-robotics-logo.svg')"
+          :image="logo_image"
+          @image-selected="save_logo"
+        />
+      </image-picker>
     </v-row>
     <v-dialog v-if="dialog" v-model="dialog" max-width="500px">
       <v-card>

@@ -18,15 +18,15 @@
           >BlueOS/issues</a
         > -->
         <!--! ===== Changed the inner content of the anchor tag ===== -->
-        <a href="https://github.com/bluerobotics/BlueOS/issues" target="_blank"
-          >CoratiaOS/issues</a
-        >
+        <a
+          href="https://github.com/bluerobotics/BlueOS/issues"
+          target="_blank"
+        >CoratiaOS/issues</a>
         or post on our
         <a
           href="https://discuss.bluerobotics.com/c/bluerobotics-software/blue-os/85"
           target="_blank"
-          >forum</a
-        >. Please include the
+        >forum</a>. Please include the
         <a href="#" @click="downloadLogs()">System logs</a>
         if possible, and what you were doing when this happened.
       </v-alert>
@@ -35,28 +35,28 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue'
 
-import filebrowser from "@/libs/filebrowser";
-import * as VCU from "@/utils/version_chooser";
+import filebrowser from '@/libs/filebrowser'
+import * as VCU from '@/utils/version_chooser'
 
 export default Vue.extend({
-  name: "SelfHealthTest",
+  name: 'SelfHealthTest',
   data: () => ({
     is_running_factory: false,
   }),
   async mounted() {
     await VCU.loadCurrentVersion().then((image) => {
-      if (image.tag === "factory") {
-        this.is_running_factory = true;
+      if (image.tag === 'factory') {
+        this.is_running_factory = true
       }
-    });
+    })
   },
   methods: {
     async downloadLogs(): Promise<void> {
-      const folder = await filebrowser.fetchFolder("system_logs");
-      await filebrowser.downloadFolder(folder);
+      const folder = await filebrowser.fetchFolder('system_logs')
+      await filebrowser.downloadFolder(folder)
     },
   },
-});
+})
 </script>

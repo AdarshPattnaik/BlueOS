@@ -75,7 +75,9 @@
         :disabled="working"
         @click="$emit('pull-and-apply', `${image.repository}:${image.tag}`)"
       >
-        <div class="scroll-text">Update to latest {{ image.tag }}</div>
+        <div class="scroll-text">
+          Update to latest {{ image.tag }}
+        </div>
       </v-btn>
       <v-dialog v-model="bootstrapDialog" width="500">
         <template #activator="{ on, attrs }">
@@ -93,7 +95,9 @@
         </template>
 
         <v-card>
-          <v-card-title class="text-h5 lighten-2"> Info </v-card-title>
+          <v-card-title class="text-h5 lighten-2">
+            Info
+          </v-card-title>
 
           <v-card-text class="text-h6 text-center mt-6">
             Updating bootstrap is only recommended between stable versions.
@@ -106,7 +110,9 @@
               Abort
             </v-btn>
             <v-spacer />
-            <v-btn color="primary" @click="updateBootstrap"> Update </v-btn>
+            <v-btn color="primary" @click="updateBootstrap">
+              Update
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -149,23 +155,23 @@
 </template>
 
 <script lang="ts">
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en.json";
-import Vue, { PropType } from "vue";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+import Vue, { PropType } from 'vue'
 
-import settings from "@/libs/settings";
-import helper from "@/store/helper";
-import { Dictionary } from "@/types/common";
-import { InternetConnectionState } from "@/types/helper";
-import { DEFAULT_REMOTE_IMAGE } from "@/utils/version_chooser";
+import settings from '@/libs/settings'
+import helper from '@/store/helper'
+import { Dictionary } from '@/types/common'
+import { InternetConnectionState } from '@/types/helper'
+import { DEFAULT_REMOTE_IMAGE } from '@/utils/version_chooser'
 
-import SpinningLogo from "../common/SpinningLogo.vue";
+import SpinningLogo from '../common/SpinningLogo.vue'
 
-TimeAgo.addDefaultLocale(en);
-const timeAgo = new TimeAgo("en-US");
+TimeAgo.addDefaultLocale(en)
+const timeAgo = new TimeAgo('en-US')
 
 export default Vue.extend({
-  name: "VersionCard",
+  name: 'VersionCard',
   components: {
     SpinningLogo,
   },
@@ -188,11 +194,11 @@ export default Vue.extend({
     },
     newStableAvailable: {
       type: String,
-      default: "",
+      default: '',
     },
     newBetaAvailable: {
       type: String,
-      default: "",
+      default: '',
     },
     updateAvailable: {
       type: Boolean,
@@ -201,7 +207,7 @@ export default Vue.extend({
     image: {
       type: Object as PropType<Dictionary<string>>,
       default() {
-        return {};
+        return {}
       },
     },
     remote: {
@@ -229,67 +235,67 @@ export default Vue.extend({
     return {
       bootstrapDialog: false,
       settings,
-    };
+    }
   },
   computed: {
     working(): boolean {
-      return this.loading || this.deleting || this.updating;
+      return this.loading || this.deleting || this.updating
     },
     isFromBR(): boolean {
       // return this.image.repository === 'bluerobotics/blueos-core'
       // ===== Changed the return path =====
-      return this.image.repository === "coratia/coratiaos-core";
+      return this.image.repository === 'coratia/coratiaos-core'
     },
     showBootstrapUpdate(): boolean {
       if (
-        !this.bootstrapVersion ||
-        helper.has_internet === InternetConnectionState.OFFLINE ||
-        helper.has_internet === InternetConnectionState.UNKNOWN
+        !this.bootstrapVersion
+        || helper.has_internet === InternetConnectionState.OFFLINE
+        || helper.has_internet === InternetConnectionState.UNKNOWN
       ) {
-        return false;
+        return false
       }
       return (
-        this.settings.is_pirate_mode &&
-        this.current &&
-        !this.updateAvailable &&
-        this.isFromBR &&
-        this.bootstrapVersion !==
+        this.settings.is_pirate_mode
+        && this.current
+        && !this.updateAvailable
+        && this.isFromBR
+        && this.bootstrapVersion
           // `${this.image.repository.split("/")[0]}/blueos-bootstrap:${this.image.tag}`
           // ===== Changed the path =====
-          `${this.image.repository.split("/")[0]}/coratiaos-bootstrap:${this.image.tag}`
-      );
+          !== `${this.image.repository.split('/')[0]}/coratiaos-bootstrap:${this.image.tag}`
+      )
     },
   },
   methods: {
     asTimeAgo(value: string) {
-      return timeAgo.format(new Date(Date.parse(value)), "round");
+      return timeAgo.format(new Date(Date.parse(value)), 'round')
     },
     shortSha(value: string) {
       if (value === null) {
-        return "Unknown";
+        return 'Unknown'
       }
-      return value.replace("sha256:", "").substring(0, 8);
+      return value.replace('sha256:', '').substring(0, 8)
     },
     imageCanBeDeleted() {
       return (
-        (this.image.tag !== "factory" ||
-          this.image.repository !== DEFAULT_REMOTE_IMAGE) &&
-        !this.deleting &&
-        this.enableDelete
-      );
+        (this.image.tag !== 'factory'
+          || this.image.repository !== DEFAULT_REMOTE_IMAGE)
+        && !this.deleting
+        && this.enableDelete
+      )
     },
     updateBootstrap() {
-      this.bootstrapDialog = false;
+      this.bootstrapDialog = false
       // this.$emit(
       //   "update-bootstrap",
       //   `bluerobotics/blueos-bootstrap:${this.image.tag}`,
       // );
       // ===== Changed the emit path =====
       this.$emit(
-        "update-bootstrap",
+        'update-bootstrap',
         `coratia/coratiaos-bootstrap:${this.image.tag}`,
-      );
+      )
     },
   },
-});
+})
 </script>

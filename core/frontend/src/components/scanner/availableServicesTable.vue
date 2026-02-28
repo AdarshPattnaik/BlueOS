@@ -5,7 +5,8 @@
       colored-border
       type="info"
       elevation="2"
-      color="yellow">
+      color="yellow"
+    >
       <!-- Shows all available services running on BlueOS, including the service port, -->
       <!--! ===== Changed the name ===== -->
       Shows all available services running on CoratiaOS, including the service
@@ -44,7 +45,9 @@
               {{ createWebpageUrl(service.port, service.documentation_url) }}
             </a>
           </td>
-          <td v-else>No API documentation</td>
+          <td v-else>
+            No API documentation
+          </td>
           <td v-if="!service.versions.isEmpty()">
             <div
               v-for="version in service.versions"
@@ -59,7 +62,9 @@
               </a>
             </div>
           </td>
-          <td v-else>No versions</td>
+          <td v-else>
+            No versions
+          </td>
         </tr>
       </tbody>
     </v-simple-table>
@@ -67,22 +72,20 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue'
 
-import helper from "@/store/helper";
-import { Service } from "@/types/helper";
+import helper from '@/store/helper'
+import { Service } from '@/types/helper'
 
 /**
  * Display all scanned services info as a pretty table.
  * @displayName Services Scanner Table
  */
 export default Vue.extend({
-  name: "AvailableServicesTable",
+  name: 'AvailableServicesTable',
   computed: {
     availableServices() {
-      return helper.services.sort((a: Service, b: Service) =>
-        a.title.localeCompare(b.title),
-      );
+      return helper.services.sort((a: Service, b: Service) => a.title.localeCompare(b.title))
     },
   },
 
@@ -91,11 +94,11 @@ export default Vue.extend({
      * Generates a url at the current host but different port and path.
      * e.g. http://[currenthost]:[newport]/[newpath]
      */
-    createWebpageUrl(port: number, path = ""): string {
-      return `${window.location.protocol}//${window.location.hostname}:${port}${path}`;
+    createWebpageUrl(port: number, path = ''): string {
+      return `${window.location.protocol}//${window.location.hostname}:${port}${path}`
     },
   },
-});
+})
 </script>
 
 <style scoped>

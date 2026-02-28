@@ -21,27 +21,27 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue'
 
-import settings from "@/libs/settings";
+import settings from '@/libs/settings'
 
 export default Vue.extend({
-  name: "PirateModeMenu",
+  name: 'PirateModeMenu',
   data() {
     return {
       settings,
-    };
+    }
   },
   methods: {
     togglePirateMode(): void {
-      this.$emit("pirateModeChanged", settings.is_pirate_mode);
+      this.$emit('pirateModeChanged', settings.is_pirate_mode)
 
       // Wait for menu to close before changing pirate mode,
       // otherwise the menu will change before closing it
       setTimeout(() => {
-        settings.is_pirate_mode = !settings.is_pirate_mode;
-      }, 300);
+        settings.is_pirate_mode = !settings.is_pirate_mode
+      }, 300)
     },
   },
-});
+})
 </script>

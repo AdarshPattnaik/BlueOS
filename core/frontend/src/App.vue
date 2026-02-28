@@ -33,53 +33,59 @@
         <v-app-bar-nav-icon
           id="hamburguer-menu-button"
           :style="{ visibility: drawer ? 'hidden' : 'visible' }"
-          <!--! ===== Changed the Color ===== -->
+          <!--!="===="
+          changed
+          the
+          color="===="
+          --
+        >
           <!-- color="white" -->
           color="black"
           @click="drawer = true"
-        />
-        <v-card
-          v-if="!safe_mode"
-          v-tooltip="'Some functionality is not available while the vehicle is armed'"
-          class="d-flex align-center warning justify-center mr-5"
-          height="40"
-        >
-          <v-icon class="ml-3">
-            mdi-alert-outline
-          </v-icon>
-          <v-card-title>
-            Armed
-          </v-card-title>
-        </v-card>
-        <draggable v-model="selected_widgets" class="d-flex align-center justify-center">
-          <component
-            :is="getWidget(widget_name).component"
-            v-for="(widget_name, i) in selected_widgets"
-            :key="i"
-            v-bind="getWidget(widget_name).props"
-            class="mr-2"
-            ripple
-            disabled
           />
-        </draggable>
-        <v-spacer />
-        <span class="d-flex flex-column align-center">
-          <backend-status-checker @statusChange="changeBackendStatus" />
-        </span>
-        <v-spacer />
-        <beacon-tray-menu />
-        <health-tray-menu />
-        <gps-tray-menu :instance="1" />
-        <gps-tray-menu :instance="2" />
-        <theme-tray-menu />
-        <system-checker-tray-menu />
-        <vehicle-reboot-required-tray-menu />
-        <pirate-mode-tray-menu />
-        <internet-tray-menu />
-        <wifi-tray-menu />
-        <ethernet-tray-menu />
-        <cloud-tray-menu v-if="settings.is_dev_mode" />
-        <notification-tray-button />
+          <v-card
+            v-if="!safe_mode"
+            v-tooltip="'Some functionality is not available while the vehicle is armed'"
+            class="d-flex align-center warning justify-center mr-5"
+            height="40"
+          >
+            <v-icon class="ml-3">
+              mdi-alert-outline
+            </v-icon>
+            <v-card-title>
+              Armed
+            </v-card-title>
+          </v-card>
+          <draggable v-model="selected_widgets" class="d-flex align-center justify-center">
+            <component
+              :is="getWidget(widget_name).component"
+              v-for="(widget_name, i) in selected_widgets"
+              :key="i"
+              v-bind="getWidget(widget_name).props"
+              class="mr-2"
+              ripple
+              disabled
+            />
+          </draggable>
+          <v-spacer />
+          <span class="d-flex flex-column align-center">
+            <backend-status-checker @statusChange="changeBackendStatus" />
+          </span>
+          <v-spacer />
+          <beacon-tray-menu />
+          <health-tray-menu />
+          <gps-tray-menu :instance="1" />
+          <gps-tray-menu :instance="2" />
+          <theme-tray-menu />
+          <system-checker-tray-menu />
+          <vehicle-reboot-required-tray-menu />
+          <pirate-mode-tray-menu />
+          <internet-tray-menu />
+          <wifi-tray-menu />
+          <ethernet-tray-menu />
+          <cloud-tray-menu v-if="settings.is_dev_mode" />
+          <notification-tray-button />
+        </v-app-bar-nav-icon>
       </v-app-bar>
     </v-card>
 
@@ -96,14 +102,24 @@
         @click="goHome"
       >
         <v-img
-          <!--! ===== Changed the Logo and its alternative text ===== -->
+          <!--!="===="
+          changed
+          the
+          logo
+          and
+          its
+          alternative
+          text="===="
+          --
+        >
           <!-- alt="Blue Robotics Logo" -->
           alt="Coratia Technologies Logo"
           class="shrink mr-2"
           contain
           :src="blueos_logo"
           width="70%"
-        />
+          />
+        </v-img>
       </v-container>
       <v-divider />
       <v-container
@@ -141,10 +157,13 @@
                     color="red"
                     pill
                     x-small
-                    <!-- text-color="white" -->
+                    <!--
+                    text-color="white"
+                    --
+                  >
                     <!--! ===== Changed the text color ===== -->
                     text-color="black"
-                  >
+                    >
                     Beta
                   </v-chip>
                 </v-list-item-title>
@@ -732,7 +751,7 @@ export default Vue.extend({
       // Env may not exist when running it with `bun vite`
       // const project_name = process.env.PROJECT_NAME ?? 'BlueOS'
       // ===== Changed the Project Name (BlueOS -> CoratiaOS) =====
-      const project_name = process.env.PROJECT_NAME ?? 'CoratiaOS';
+      const project_name = process.env.PROJECT_NAME ?? 'CoratiaOS'
       if (this.$route.name === this.$router.options.routes!.first()!.name) {
         document.title = project_name
         return
@@ -966,7 +985,7 @@ div.pirate-marker.v-icon {
 
 .dark-background {
   background-color: var(--v-mariner_blue-base) !important;
-  background-image: linear-gradient(160deg, var(--v-mariner_blue-base) 0%, var(--v-blue_whale-base) 100%) !important;  
+  background-image: linear-gradient(160deg, var(--v-mariner_blue-base) 0%, var(--v-blue_whale-base) 100%) !important;
 }
 
 .light-background-glass {
@@ -992,7 +1011,7 @@ div.pirate-marker.v-icon {
   */
   background-color: #135DA355 !important;
   background-image: linear-gradient(160deg, #135DA388 0%, #012F4688 100%) !important;
-  
+
   /* ===== Changed the color of the background to yellow ===== */
   background-color: #FFCA3A55 !important;
   background-image: linear-gradient(160deg, #FFCA3A88 0%, #9F8F0088 100%) !important;

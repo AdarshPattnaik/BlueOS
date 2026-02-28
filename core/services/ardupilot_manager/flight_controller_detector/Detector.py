@@ -58,7 +58,7 @@ class Detector:
         boards = [
             FlightController(
                 name=port.product or port.name,
-                manufacturer='Coratia Technologies',
+                manufacturer="Coratia Technologies",
                 platform=Detector.detect_serial_platform(port)
                 or Platform(),  # this is just to make CI happy. check line 82
                 path=port.device,

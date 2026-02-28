@@ -110,11 +110,11 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
-import Vue from "vue";
+import axios from 'axios'
+import Vue from 'vue'
 
-import SpinningLogo from "@/components/common/SpinningLogo.vue";
-import back_axios from "@/utils/api";
+import SpinningLogo from '@/components/common/SpinningLogo.vue'
+import back_axios from '@/utils/api'
 
 interface FileEntry {
   name: string;
@@ -128,18 +128,18 @@ interface ImageUrl {
 }
 
 export default Vue.extend({
-  name: "ImagePicker",
+  name: 'ImagePicker',
   components: {
     SpinningLogo,
   },
   props: {
     size: {
       type: String,
-      default: "50",
+      default: '50',
     },
     directory: {
       type: String,
-      default: "/userdata/images/",
+      default: '/userdata/images/',
       required: false,
     },
     readonlyFiles: {
@@ -166,97 +166,97 @@ export default Vue.extend({
       error: null as string | null,
       loading: true,
       upload_error: null as string | null,
-    };
+    }
   },
   computed: {
     allimages(): ImageUrl[] {
       const images = this.images.map((image: string) => ({
         name: `${this.directory}/${image}`,
         readonly: false,
-      }));
+      }))
       const readonly_images = this.readonlyFiles.map((path: string) => ({
         name: path,
         readonly: true,
-      }));
+      }))
       return [
         ...images,
         ...readonly_images,
         { name: this.defaultImage, readonly: true },
-      ];
+      ]
     },
   },
   mounted() {
-    this.loadImages();
+    this.loadImages()
   },
   methods: {
     selectImage(index: number) {
-      this.selected_index = index;
-      this.$emit("image-selected", this.allimages[index].name);
-      this.dialog = false;
+      this.selected_index = index
+      this.$emit('image-selected', this.allimages[index].name)
+      this.dialog = false
     },
     openDialog() {
-      this.dialog = true;
+      this.dialog = true
     },
     loadImages() {
       back_axios({
-        method: "get",
+        method: 'get',
         url: this.directory,
       })
         .then((response) => {
           this.images = response.data
-            .filter((string: FileEntry) => string.type === "file")
-            .map((file: FileEntry) => file.name);
-          this.loading = false;
+            .filter((string: FileEntry) => string.type === 'file')
+            .map((file: FileEntry) => file.name)
+          this.loading = false
         })
         .catch((error) => {
-          this.error = error;
-        });
+          this.error = error
+        })
     },
     async deleteImage(index: number) {
       try {
         await back_axios({
-          method: "delete",
+          method: 'delete',
           url: `/upload/${this.directory}/${this.images[index]}`,
-        });
-        this.loadImages();
+        })
+        this.loadImages()
       } catch (error) {
-        console.error("Error deleting file:", error);
-        this.error = `Error deleting file: ${error}`;
+        console.error('Error deleting file:', error)
+        this.error = `Error deleting file: ${error}`
       }
     },
     onFileInputChange(event: Event) {
-      const target = event.target as HTMLInputElement;
-      const file = target.files?.[0];
-      if (!file) return;
-      const fileName = encodeURIComponent(file.name);
-      this.uploadFile(file, `${this.directory}/${fileName}`);
+      const target = event.target as HTMLInputElement
+      const file = target.files?.[0]
+      if (!file) return
+      const fileName = encodeURIComponent(file.name)
+      this.uploadFile(file, `${this.directory}/${fileName}`)
     },
     onFilePickerClick() {
-      const input = this.$refs.fileInput as HTMLInputElement;
-      input.click();
+      const input = this.$refs.fileInput as HTMLInputElement
+      input.click()
     },
     async uploadFile(file: File, destination_path: string) {
       const config = {
         headers: {
-          "Content-Type": file.type,
+          'Content-Type': file.type,
         },
-      };
+      }
       await axios
         .put(`/upload/${destination_path}`, file, config)
         .catch((error) => {
-          this.upload_error = error;
-          console.log(`Error uploading file: ${error}`);
-        });
-      this.loadImages();
+          this.upload_error = error
+          console.log(`Error uploading file: ${error}`)
+        })
+      this.loadImages()
     },
     async onDrop(event: DragEvent) {
-      const file = event.dataTransfer?.files?.[0];
-      if (!file) return;
-      const fileName = encodeURIComponent(file.name);
-      await this.uploadFile(file, `${this.directory}/${fileName}`);
+      const file = event.dataTransfer?.files?.[0]
+      if (!file) return
+      const fileName = encodeURIComponent(file.name)
+      await this.uploadFile(file, `${this.directory}/${fileName}`)
     },
   },
-});
+})
 </script>
 <style scoped>
 #main {

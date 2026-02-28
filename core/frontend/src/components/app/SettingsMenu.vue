@@ -41,12 +41,15 @@
 
           <v-container class="pa-2 align-center">
             <v-btn
-              <!-- v-tooltip="'Restores BlueOS services to default configurations'" -->
+              v-tooltip="'Restores BlueOS services to default configurations'"
+              <!--
+              --
+            >
               <!--! ===== Changed the name in the tooltip ===== -->
               v-tooltip="'Restores CoratiaOS services to default configurations'"
               class="ma-2"
               @click="reset_settings"
-            >
+              >
               <v-icon left>
                 mdi-cog-refresh
               </v-icon>
@@ -62,12 +65,15 @@
 
           <v-card-actions class="flex-row">
             <v-btn
-              <!-- v-tooltip="'Download log for all services in BlueOS'" -->
+              v-tooltip="'Download log for all services in BlueOS'"
+              <!--
+              --
+            >
               <!--! ===== Changed the name in the tooltip ===== -->
               v-tooltip="'Download log for all services in CoratiaOS'"
               class="ma-2"
               @click="download_service_log_files"
-            >
+              >
               <v-icon left>
                 mdi-folder-download
               </v-icon>

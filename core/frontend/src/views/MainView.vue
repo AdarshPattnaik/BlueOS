@@ -36,7 +36,9 @@
     <div class="grid-holder">
       <div class="grid-holder-container">
         <div
-          v-for="({ icon, title, text, route, advanced }, i) in apps"
+          v-for="({
+            icon, title, text, route, advanced,
+          }, i) in apps"
           :key="i"
         >
           <v-card class="mb-3 px-3 rounded-xl app-card" :href="route">
@@ -76,17 +78,17 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue'
 
-import SelfHealthTest from "@/components/health/SelfHealthTest.vue";
-import settings from "@/libs/settings";
-import wifi from "@/store/wifi";
-import { Network } from "@/types/wifi";
+import SelfHealthTest from '@/components/health/SelfHealthTest.vue'
+import settings from '@/libs/settings'
+import wifi from '@/store/wifi'
+import { Network } from '@/types/wifi'
 
-import menus, { menuItem } from "../menus";
+import menus, { menuItem } from '../menus'
 
 export default Vue.extend({
-  name: "MainView",
+  name: 'MainView',
   components: {
     SelfHealthTest,
   },
@@ -96,26 +98,26 @@ export default Vue.extend({
   }),
   computed: {
     apps() {
-      const items: menuItem[] = [];
+      const items: menuItem[] = []
       for (const item of this.menus) {
         if (item?.route && (!item.advanced || this.settings.is_pirate_mode)) {
-          items.push(item);
-          continue;
+          items.push(item)
+          continue
         }
 
         for (const subitem of item?.submenus || []) {
           if (!subitem.advanced || this.settings.is_pirate_mode) {
-            items.push(subitem);
+            items.push(subitem)
           }
         }
       }
-      return items;
+      return items
     },
     current_network(): Network | null {
-      return wifi.current_network;
+      return wifi.current_network
     },
   },
-});
+})
 </script>
 
 <style scoped>
