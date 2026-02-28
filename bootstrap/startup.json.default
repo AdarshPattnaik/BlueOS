@@ -1,8 +1,6 @@
 {
     "core": {
         "tag": "factory",
-        # "image": "bluerobotics/blueos-core",
-        # ===== Changed the image path =====
         "image": "coratia/coratiaos-core",
         "enabled": true,
         "webui": false,

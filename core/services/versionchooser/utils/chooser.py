@@ -281,7 +281,7 @@ class VersionChooser:
                 startup_file.truncate()
 
                 logger.info("Stopping core...")
-                core = await self.client.containers.get("blueos-core")  # type: ignore
+                core = await self.client.containers.get("coratiaos-core")  # type: ignore
                 if core:
                     await core.kill()
                     result = await core.wait()  # type: ignore
@@ -334,7 +334,7 @@ class VersionChooser:
         for image in await self.client.images.list():
             if not image["RepoTags"]:
                 continue
-            if not any("/blueos-core:" in tag for tag in image["RepoTags"]):
+            if not any("/coratiaos-core:" in tag for tag in image["RepoTags"]):
                 continue
             for image_tag in image["RepoTags"]:
                 image_repository, tag = image_tag.split(":")
@@ -391,6 +391,6 @@ class VersionChooser:
             web.Response: always 200
         """
         logger.info("Stopping core...")
-        core = await self.client.containers.get("blueos-core")  # type: ignore
+        core = await self.client.containers.get("coratiaos-core")  # type: ignore
         await core.kill()
         return web.Response(status=200, text="Restarting...")

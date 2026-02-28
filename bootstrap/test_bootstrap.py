@@ -13,8 +13,6 @@ from bootstrap.bootstrap import Bootstrapper
 SAMPLE_JSON = """{
     "core": {
         "tag": "master",
-        # "image": "bluerobotics/blueos-core",
-        # ===== Changed the image =====
         "image": "coratia/coratiaos-core",
         "enabled": true,
         "webui": false,
