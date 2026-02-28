@@ -170,7 +170,7 @@ test $NO_CLEAN || (
 )
 
 # Start installing necessary files and system configuration
-echo "Going to install BlueOS version ${VERSION}."
+echo "Going to install CoratiaOS version ${VERSION}."
 
 echo "Downloading and installing udev rules."
 curl -fsSL $ROOT/install/udev/100.autopilot.rules -o /etc/udev/rules.d/100.autopilot.rules
@@ -201,8 +201,8 @@ command -v raspi-config && (
 )
 
 echo "Downloading bootstrap"
-BLUEOS_BOOTSTRAP="$DOCKER_USER/blueos-bootstrap:$VERSION" # Use current version
-BLUEOS_CORE="$DOCKER_USER/blueos-core:$VERSION" # We don't have a stable tag yet
+BLUEOS_BOOTSTRAP="$DOCKER_USER/adarshpattnaik-bootstrap:$VERSION" # Use current version
+BLUEOS_CORE="$DOCKER_USER/coratiaos-core:$VERSION" # We don't have a stable tag yet
 BLUEOS_FACTORY="adarshpattnaik/coratiaos-core:factory" # used for "factory reset"
 
 docker pull $BLUEOS_BOOTSTRAP
