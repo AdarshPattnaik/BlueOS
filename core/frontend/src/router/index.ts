@@ -33,11 +33,12 @@ const routes: Array<RouteConfig> = [
     name: 'Autopilot',
     component: defineAsyncComponent(() => import('../views/Autopilot.vue')),
   },
-  {
-    path: '/vehicle/setup/:tab?/:subtab?',
-    name: 'Vehicle Setup',
-    component: defineAsyncComponent(() => import('../views/VehicleSetupView.vue')),
-  },
+  //! ===== Currently Vehicle Setup has been disabled =====
+  // {
+  //   path: '/vehicle/setup/:tab?/:subtab?',
+  //   name: 'Vehicle Setup',
+  //   component: defineAsyncComponent(() => import('../views/VehicleSetupView.vue')),
+  // },
   {
     path: '/vehicle/pings',
     name: 'Pings',

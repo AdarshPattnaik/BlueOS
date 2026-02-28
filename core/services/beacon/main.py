@@ -73,7 +73,9 @@ class AsyncRunner:
 
 
 class Beacon:
-    DEFAULT_HOSTNAME = "blueos"
+    # DEFAULT_HOSTNAME = "blueos"
+    #! ===== Changed the name =====
+    DEFAULT_HOSTNAME = "coratiaos"
 
     def __init__(self) -> None:
         self.runners: Dict[str, AsyncRunner] = {}
@@ -136,7 +138,7 @@ class Beacon:
         self.manager.save()
 
     def get_vehicle_name(self) -> str:
-        return self.manager.settings.vehicle_name or "BlueROV2"
+        return self.manager.settings.vehicle_name or "JalaSimha"
 
     def create_async_service_infos(
         self, interface: str, service_name: str, domain_name: str, ip: str

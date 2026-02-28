@@ -33,7 +33,9 @@
         <v-app-bar-nav-icon
           id="hamburguer-menu-button"
           :style="{ visibility: drawer ? 'hidden' : 'visible' }"
-          color="white"
+          <!--! ===== Changed the Color ===== -->
+          <!-- color="white" -->
+          color="black"
           @click="drawer = true"
         />
         <v-card
@@ -94,7 +96,9 @@
         @click="goHome"
       >
         <v-img
-          alt="Blue Robotics Logo"
+          <!--! ===== Changed the Logo and its alternative text ===== -->
+          <!-- alt="Blue Robotics Logo" -->
+          alt="Coratia Technologies Logo"
           class="shrink mr-2"
           contain
           :src="blueos_logo"
@@ -137,7 +141,9 @@
                     color="red"
                     pill
                     x-small
-                    text-color="white"
+                    <!-- text-color="white" -->
+                    <!--! ===== Changed the text color ===== -->
+                    text-color="black"
                   >
                     Beta
                   </v-chip>
@@ -218,7 +224,7 @@
                     :src="menu.icon"
                     width="24"
                   />
-                  <!-- eslint-disable vue/no-v-html -->
+                  <!--! eslint-disable vue/no-v-html -->
                   <v-img
                     v-else-if="menu.icon.startsWith('<svg')"
                     width="24"
@@ -311,12 +317,15 @@
         <v-container class="d-flex justify-center">
           <power-menu />
           <settings-menu />
-          <report-menu />
+          <!--! ===== Commented the whole report menu ===== -->
+          <!-- <report-menu /> -->
         </v-container>
-        <span
+        <!--! ===== Commented the build info ===== -->
+        <!-- <span
           class="build_info"
         >
           BlueOS Version:
+          CoratiaOS Version:
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -330,9 +339,9 @@
           class="build_info"
         >
           Bootstrap Version: {{ bootstrap_version.split(':')[1] }}
-        </span>
+        </span> -->
         <!-- eslint-disable vuejs-accessibility/click-events-have-key-events -->
-        <span
+        <!-- <span
           id="current-version"
           class="build_info"
           @click="buildDateClick"
@@ -360,8 +369,9 @@
             style="text-decoration:none;"
           >
             Blue Robotics
+            Coratia Technologies
           </a>
-        </span>
+        </span> -->
       </v-container>
     </v-navigation-drawer>
 
@@ -374,6 +384,7 @@
     <new-version-notificator />
     <Wizard />
     <alerter />
+
     <VTour
       name="welcomeTour"
       :steps="steps.filter((step) => step?.filter_wifi_connected !== wifi_connected)"
@@ -394,7 +405,7 @@ import settings from '@/libs/settings'
 import helper from '@/store/helper'
 import wifi from '@/store/wifi'
 import { Service } from '@/types/helper'
-import { convertGitDescribeToUrl } from '@/utils/helper_functions'
+// import { convertGitDescribeToUrl } from '@/utils/helper_functions'convertGitDescribeToUrl
 import updateTime from '@/utils/update_time'
 import * as VCU from '@/utils/version_chooser'
 
@@ -562,7 +573,9 @@ export default Vue.extend({
           icon: 'mdi-puzzle',
           route: '/tools/extensions-manager',
           advanced: false,
-          text: 'Manage BlueOS extensions',
+          // text: 'Manage BlueOS extensions',
+          // ===== Changed the text =====
+          text: 'Manage CoratiaOS extensions',
           beta: true,
         },
         ...foundExtensions,
@@ -575,9 +588,12 @@ export default Vue.extend({
         {
           target: '#tour-center-hook',
           header: {
-            title: 'Welcome to BlueOS!',
+            // title: 'Welcome to BlueOS!',
+            // ===== Changed the title =====
+            title: 'Welcome to CoratiaOS!',
           },
-          content: `We are happy to have you navigating with us! BlueOS provides the
+          // ===== Changed the content (BlueOS -> CoratiaOS) =====
+          content: `We are happy to have you navigating with us! CoratiaOS provides the
           necessary tools to configure your vehicle, check the system status and more.
           Follow this quick tour to get familiar with your brand new onboard system.`,
           params: {
@@ -586,7 +602,8 @@ export default Vue.extend({
         },
         {
           target: '#tour-center-hook',
-          content: 'Connect BlueOS to the internet to enable online functionalities.',
+          // ===== Changed the content (BlueOS -> CoratiaOS) =====
+          content: 'Connect CoratiaOS to the internet to enable online functionalities.',
           filter_wifi_connected: true,
           params: {
             enableScrolling: false,
@@ -610,7 +627,8 @@ export default Vue.extend({
         },
         {
           target: '#button-to-vehicle',
-          content: 'This is the main BlueOS menu. Here you can access all the running services and system utilities.',
+          // ===== Changed the content (BlueOS -> CoratiaOS) =====
+          content: 'This is the main menu. Here you can access all the running services and system utilities.',
           params: {
             enableScrolling: false,
             placement: 'right',
@@ -632,7 +650,8 @@ export default Vue.extend({
         },
         {
           target: '#button-to-tools',
-          content: `Here you can find all kinds of tools to improve your BlueOS experience.
+          // ===== Changed the content (BlueOS -> CoratiaOS) =====
+          content: `Here you can find all kinds of tools to improve your CoratiaOS experience.
           There are system-diagnosis tools, like network-speed tester and others, all under the Tools menu.`,
           params: {
             enableScrolling: false,
@@ -647,7 +666,8 @@ export default Vue.extend({
         },
         {
           target: '#settings-menu-button',
-          content: 'With the settings button, you can customize your BlueOS experience.',
+          // ===== Changed the content (BlueOS -> CoratiaOS) =====
+          content: 'With the settings button, you can customize your CoratiaOS experience.',
           params: {
             enableScrolling: false,
           },
@@ -662,7 +682,8 @@ export default Vue.extend({
         },
         {
           target: '#current-version',
-          content: `You can check the version of BlueOS installed here. This version number is particularly important
+          // ===== Changed the content (BlueOS -> CoratiaOS) =====
+          content: `You can check the version of CoratiaOS installed here. This version number is particularly important
           when looking for help.`,
           params: {
             enableScrolling: false,
@@ -681,7 +702,8 @@ export default Vue.extend({
         },
         {
           target: '#tour-center-hook',
-          content: `That's it! Now we want you to enjoy your experience with BlueOS! Also, don't forget to get in touch
+          // ===== Changed the content (BlueOS -> CoratiaOS) =====
+          content: `That's it! Now we want you to enjoy your experience! Also, don't forget to get in touch
           if you need anything else to improve your journey! Happy exploring!`,
           params: {
             enableScrolling: false,
@@ -689,15 +711,15 @@ export default Vue.extend({
         },
       ]
     },
-    git_info(): string {
-      return import.meta.env.VITE_APP_GIT_DESCRIBE
-    },
-    git_info_url(): string {
-      return convertGitDescribeToUrl(import.meta.env.VITE_APP_GIT_DESCRIBE)
-    },
-    build_date(): string {
-      return import.meta.env.VITE_BUILD_DATE
-    },
+    // git_info(): string {
+    //   return import.meta.env.VITE_APP_GIT_DESCRIBE
+    // },
+    // git_info_url(): string {
+    //   return convertGitDescribeToUrl(import.meta.env.VITE_APP_GIT_DESCRIBE)
+    // },
+    // build_date(): string {
+    //   return import.meta.env.VITE_BUILD_DATE
+    // },
     blueos_logo(): string {
       return settings.is_dark_theme ? blueos_white : blueos_blue
     },
@@ -708,7 +730,9 @@ export default Vue.extend({
       // In an update process the page may not be the 'Main' page, check tour when page changes
       this.checkTour()
       // Env may not exist when running it with `bun vite`
-      const project_name = process.env.PROJECT_NAME ?? 'BlueOS'
+      // const project_name = process.env.PROJECT_NAME ?? 'BlueOS'
+      // ===== Changed the Project Name (BlueOS -> CoratiaOS) =====
+      const project_name = process.env.PROJECT_NAME ?? 'CoratiaOS';
       if (this.$route.name === this.$router.options.routes!.first()!.name) {
         document.title = project_name
         return
@@ -818,6 +842,12 @@ export default Vue.extend({
 </script>
 
 <style>
+
+/* ===== Changed the color of the icons to black ===== */
+.v-icon {
+  color: #000 !important;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -852,7 +882,9 @@ html {
 }
 
 .active_menu {
-  color: blue;
+  /* color: blue; */
+  /* ===== Changed the color of the active menu to yellow ===== */
+  color: yellow !important;
 }
 
 span.build_info {
@@ -934,7 +966,7 @@ div.pirate-marker.v-icon {
 
 .dark-background {
   background-color: var(--v-mariner_blue-base) !important;
-  background-image: linear-gradient(160deg, var(--v-mariner_blue-base) 0%, var(--v-blue_whale-base) 100%) !important;
+  background-image: linear-gradient(160deg, var(--v-mariner_blue-base) 0%, var(--v-blue_whale-base) 100%) !important;  
 }
 
 .light-background-glass {
@@ -942,8 +974,13 @@ div.pirate-marker.v-icon {
     It's not possible for us to get the color as variables and set a transparency on it,
     so we use the colors directly
   */
-  background-color: #2699D055 !important;
-  background-image: linear-gradient(160deg, #2699D088 0%, #135DA388 100%) !important;
+
+  /* background-color: #2699D055 !important;
+  background-image: linear-gradient(160deg, #2699D088 0%, #135DA388 100%) !important; */
+
+  /* ===== Changed the color of the background to yellow ===== */
+  background-color: #FFCA3A55 !important;
+  background-image: linear-gradient(160deg, #FFCA3A88 0%, #9F8F0088 100%) !important;
   backdrop-filter: blur(4.5px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
 }
@@ -955,6 +992,10 @@ div.pirate-marker.v-icon {
   */
   background-color: #135DA355 !important;
   background-image: linear-gradient(160deg, #135DA388 0%, #012F4688 100%) !important;
+  
+  /* ===== Changed the color of the background to yellow ===== */
+  background-color: #FFCA3A55 !important;
+  background-image: linear-gradient(160deg, #FFCA3A88 0%, #9F8F0088 100%) !important;
   backdrop-filter: blur(4.5px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
 }

@@ -64,7 +64,7 @@ def run_command(command: str, check: bool = True, log_output: bool = True) -> "s
     # we first try with the ssh key, which is the default behavior.
     # we need to fallback to sshpass as some systems will try to call this function before the ssh key is generated.
     # this is the case for the first boot of this image after updating.
-    # not including the sshpass step causes blueos_startup_update to fail hard. crashing BlueOS as a whole.
+    # not including the sshpass step causes blueos_startup_update to fail hard. crashing CoratiaOS as a whole.
     try:
         ret = run_command_with_ssh_key(command, check)
     except Exception as error:

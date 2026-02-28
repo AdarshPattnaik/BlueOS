@@ -4,12 +4,12 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
 on:
-    workflow_dispatch:
-    pull_request:
-    push:
-    schedule:
+  workflow_dispatch:
+  pull_request:
+  push:
+  schedule:
     # Run every 6 days to keep our caches alive
-    - cron: '0 0 */6 * *'
+    - cron: "0 0 */6 * *"
 
 jobs:
   python-tests:
@@ -19,30 +19,29 @@ jobs:
       python-version: 3.11 # Our base image has Python 3.11
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up Python ${{ env.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ env.python-version }}
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.python-version }}
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get install --no-install-recommends --assume-yes shellcheck parallel
-        python -m pip install --upgrade pip
-        pip install poetry
+      - name: Install dependencies
+        run: |
+          sudo apt-get install --no-install-recommends --assume-yes shellcheck parallel
+          python -m pip install --upgrade pip
+          pip install poetry
 
-    - name: Run tests
-      run: |
-        .hooks/pre-push
+      - name: Run tests
+        run: |
+          .hooks/pre-push
 
-    - name: Upload coverage
-      uses: actions/upload-artifact@v4
-      with:
-        name: coverage
-        path: htmlcov
-
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: htmlcov
 
   frontend-tests:
     runs-on: ubuntu-latest
@@ -72,7 +71,9 @@ jobs:
       fail-fast: false
       matrix:
         docker: [bootstrap, core]
-        project: [blueos]
+        # project: [blueos]
+        #! ===== Changed the project name =====
+        project: [coratiaos]
         platforms: ["linux/arm/v7,linux/arm64/v8,linux/amd64"]
     steps:
       - name: Free Disk Space (Ubuntu)
@@ -190,14 +191,18 @@ jobs:
             ${{ steps.prepare.outputs.buildx_args }} \
             --platform "linux/arm64/v8"  \
             --tag ${DOCKER_IMAGE}:${GIT_HASH_SHORT} \
-            --output "type=docker,dest=BlueOs-core-docker-image-${GIT_HASH_SHORT}-arm64-v8.tar" \
+            # --output "type=docker,dest=BlueOs-core-docker-image-${GIT_HASH_SHORT}-arm64-v8.tar" \
+            #! ===== Changed the dest name =====
+            --output "type=docker,dest=CroatiaOS-core-docker-image-${GIT_HASH_SHORT}-arm64-v8.tar" \
 
       - name: Upload artifact arm64-v8
         uses: actions/upload-artifact@v4
         if: success() && matrix.docker == 'core'
         with:
-          name: BlueOS-core-docker-image-arm64-v8
-          path: '*arm64-v8.tar'
+          # name: BlueOS-core-docker-image-arm64-v8
+          #! ===== Changed the name =====
+          name: CroatiaOS-core-docker-image-arm64-v8
+          path: "*arm64-v8.tar"
 
       - name: Create image artifact
         if: success() && matrix.docker == 'core'
@@ -208,14 +213,18 @@ jobs:
             ${{ steps.prepare.outputs.buildx_args }} \
             --platform "linux/arm/v7"  \
             --tag ${DOCKER_IMAGE}:${GIT_HASH_SHORT} \
-            --output "type=docker,dest=BlueOs-core-docker-image-${GIT_HASH_SHORT}-arm-v7.tar" \
+            # --output "type=docker,dest=BlueOs-core-docker-image-${GIT_HASH_SHORT}-arm-v7.tar" \
+            #! ===== Changed the dest name =====
+            --output "type=docker,dest=CroatiaOS-core-docker-image-${GIT_HASH_SHORT}-arm-v7.tar" \
 
       - name: Upload artifact arm-v7
         uses: actions/upload-artifact@v4
         if: success() && matrix.docker == 'core'
         with:
-          name: BlueOS-core-docker-image-arm-v7
-          path: '*arm-v7.tar'
+          # name: BlueOS-core-docker-image-arm-v7
+          #! ===== Changed the name =====
+          name: CroatiaOS-core-docker-image-arm-v7
+          path: "*arm-v7.tar"
 
       - name: Create image artifact
         if: success() && matrix.docker == 'core'
@@ -226,21 +235,24 @@ jobs:
             ${{ steps.prepare.outputs.buildx_args }} \
             --platform "linux/amd64"  \
             --tag ${DOCKER_IMAGE}:${GIT_HASH_SHORT} \
-            --output "type=docker,dest=BlueOs-core-docker-image-${GIT_HASH_SHORT}-amd64.tar" \
+            # --output "type=docker,dest=BlueOs-core-docker-image-${GIT_HASH_SHORT}-amd64.tar" \
+            #! =====  Changed the name =====
+            --output "type=docker,dest=CroatiaOS-core-docker-image-${GIT_HASH_SHORT}-amd64.tar" \
 
       - name: Upload artifact amd64
         uses: actions/upload-artifact@v4
         if: success() && matrix.docker == 'core'
         with:
-          name: BlueOS-core-docker-image-amd64
-          path: '*amd64.tar'
+          # name: BlueOS-core-docker-image-amd64
+          name: CoratiaOS-core-docker-image-amd64
+          path: "*amd64.tar"
 
       - name: Upload docker image for release
         uses: svenstaro/upload-release-action@v2
         if: startsWith(github.ref, 'refs/tags/') && success() && matrix.docker == 'core'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: '*.tar'
+          file: "*.tar"
           tag: ${{ github.ref }}
           overwrite: true
           prerelease: true
@@ -320,7 +332,9 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           sudo apt install zip
-          zip BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip deploy/pimod/blueos.img
+          # zip BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip deploy/pimod/blueos.img
+          #! ===== Changed the path details =====
+          zip CroatiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip deploy/pimod/croatiaos.img
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -344,8 +358,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip
-          asset_name: BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}${{ env.ASSET_NAME_SUFFIX }}.zip
+          file: CoratiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip
+          asset_name: CoratiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}${{ env.ASSET_NAME_SUFFIX }}.zip
           tag: ${{ github.ref }}
           overwrite: true
           prerelease: true

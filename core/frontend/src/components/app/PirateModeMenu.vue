@@ -1,10 +1,7 @@
 <template>
-  <v-card
-    class="d-flex flex-column align-center pa-3"
-    outlined
-    width="300"
-  >
-    <v-alert
+  <v-card class="d-flex flex-column align-center pa-3" outlined width="300">
+    <!--! ===== Commented the v-icon in this part ===== -->
+    <!-- <v-alert
       v-if="!settings.is_pirate_mode"
       colored-border
       type="info"
@@ -14,37 +11,37 @@
     >
       Use Pirate Mode to show hidden pages and advanced settings.
       Pirate powers should be used with care.
-    </v-alert>
-    <v-btn
-      @click="togglePirateMode"
-    >
-      {{ settings.is_pirate_mode ? "Disable Pirate Mode" : "Enable Pirate Mode" }}
+    </v-alert> -->
+    <v-btn @click="togglePirateMode">
+      {{
+        settings.is_pirate_mode ? "Disable Pirate Mode" : "Enable Pirate Mode"
+      }}
     </v-btn>
   </v-card>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 
-import settings from '@/libs/settings'
+import settings from "@/libs/settings";
 
 export default Vue.extend({
-  name: 'PirateModeMenu',
+  name: "PirateModeMenu",
   data() {
     return {
       settings,
-    }
+    };
   },
   methods: {
     togglePirateMode(): void {
-      this.$emit('pirateModeChanged', settings.is_pirate_mode)
+      this.$emit("pirateModeChanged", settings.is_pirate_mode);
 
       // Wait for menu to close before changing pirate mode,
       // otherwise the menu will change before closing it
       setTimeout(() => {
-        settings.is_pirate_mode = !settings.is_pirate_mode
-      }, 300)
+        settings.is_pirate_mode = !settings.is_pirate_mode;
+      }, 300);
     },
   },
-})
+});
 </script>

@@ -18,29 +18,38 @@ const menus = [
     icon: 'mdi-account-hard-hat',
     route: '/tools/available-services',
     advanced: true,
-    text: 'List all available services found in BlueOS serving http interfaces, and their'
+    // text: 'List all available services found in BlueOS serving http interfaces, and their'
+    //! ===== Changed the text =====
+    text: 'List all available services found in CoratiaOS serving http interfaces, and their'
       + ' respective API documentations.',
   },
+  //! ===== As of now Bag Editor has been commented =====
+  // {
+  //   title: 'Bag Editor',
+  //   icon: 'mdi-code-json',
+  //   route: '/tools/bag-editor',
+  //   advanced: true,
+  //   text: 'Editor for Bag Of Holding service.',
+  // },
   {
-    title: 'Bag Editor',
-    icon: 'mdi-code-json',
-    route: '/tools/bag-editor',
-    advanced: true,
-    text: 'Editor for Bag Of Holding service.',
-  },
-  {
-    title: 'BlueOS Version',
+    // title: 'BlueOS Version',
+    //! ===== Changed the title =====
+    title: 'CoratiaOS Version',
     icon: 'mdi-cellphone-arrow-down',
     route: '/tools/version-chooser',
     advanced: false,
-    text: 'Manage BlueOS versions and update to the latest available.',
+    // text: 'Manage BlueOS versions and update to the latest available.',
+    //! ===== Changed the text =====
+    text: 'Manage CoratiaOS versions and update to the latest available.',
   },
   {
     title: 'File Browser',
     icon: 'mdi-file-tree',
     route: '/tools/file-browser',
     advanced: true,
-    text: 'Browse all the files in BlueOS. Useful for fetching logs,'
+    // text: 'Browse all the files in BlueOS. Useful for fetching logs,'
+    //! ===== Changed the text =====
+    text: 'Browse all the files in CoratiaOS. Useful for fetching logs,'
       + ' tweaking configurations, and development.',
   },
   {
@@ -110,13 +119,14 @@ const menus = [
     advanced: true,
     text: 'A web-based console. Used mainly for debugging and development.',
   },
-  {
-    title: 'Vehicle Setup',
-    icon: 'mdi-cog-outline',
-    route: '/vehicle/setup',
-    advanced: false,
-    text: 'Vehicle and Peripherals setup. Includes sensor calibrations and Motors/Peripherals mapping.',
-  },
+  //! ===== As of now Vehicle Setup has been commented =====
+  // {
+  //   title: 'Vehicle Setup',
+  //   icon: 'mdi-cog-outline',
+  //   route: '/vehicle/setup',
+  //   advanced: false,
+  //   text: 'Vehicle and Peripherals setup. Includes sensor calibrations and Motors/Peripherals mapping.',
+  // },
   {
     title: 'Video Streams',
     icon: 'mdi-video-vintage',

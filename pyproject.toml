@@ -1,7 +1,9 @@
 [tool.poetry]
 name = "blueos-docker"
 version = "0.0.1"
-description = "Blue Robotics BlueOS computer project"
+# description = "Blue Robotics BlueOS computer project"
+# ===== Changed the description =====
+description = "Coratia Technologies CoratiaOS computer project"
 authors = ["Software Department <software@bluerobotics.com>"]
 license = "MIT"
 package-mode = false

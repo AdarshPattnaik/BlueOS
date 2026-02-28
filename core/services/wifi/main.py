@@ -44,7 +44,9 @@ wifi_manager: Optional[AbstractWifiManager] = None
 
 app = FastAPI(
     title="WiFi Manager API",
-    description="WiFi Manager is responsible for managing WiFi connections on BlueOS.",
+    # description="WiFi Manager is responsible for managing WiFi connections on BlueOS.",
+    #! ===== Changed the name =====
+    description="WiFi Manager is responsible for managing WiFi connections on CoratiaOS.",
     default_response_class=PrettyJSONResponse,
 )
 app.router.route_class = GenericErrorHandlingRoute

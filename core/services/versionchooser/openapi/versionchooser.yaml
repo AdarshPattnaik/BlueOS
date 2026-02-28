@@ -1,7 +1,8 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: BlueOS Version Chooser
+  # title: BlueOS Version Chooser
+  title: CoratiaOS Version Chooser
   license:
     name: MIT
 servers:
@@ -11,17 +12,23 @@ paths:
   /version/current:
     get:
       operationId: main.get_version
-      summary: Return the current running version of BlueOS
+      # summary: Return the current running version of BlueOS
+      #! ===== Changed the name =====
+      summary: Return the current running version of CoratiaOS
       responses:
-        '200':
-          description: The current running version of BlueOS
+        "200":
+          # description: The current running version of BlueOS
+          #! ===== Changed the name =====
+          description: The current running version of CoratiaOS
     post:
       operationId: main.set_version
-      summary: Sets the current version of BlueOS to a new tag
+      # summary: Sets the current version of BlueOS to a new tag
+      #! ===== Changed the name =====
+      summary: Sets the current version of CoratiaOS to a new tag
       responses:
-        '200':
+        "200":
           description: Successfully set a new version
-        '400':
+        "400":
           description: Attempted to set an unavailable version
       requestBody:
         content:
@@ -31,7 +38,9 @@ paths:
               properties:
                 repository:
                   type: string
-                  example: bluerobotics/blueos-core
+                  # example: bluerobotics/blueos-core
+                  #! ===== Changed the path =====
+                  example: coratia/coratiaos-core
                 tag:
                   type: string
                   example: master
@@ -39,17 +48,23 @@ paths:
   /bootstrap/current:
     get:
       operationId: main.get_bootstrap_version
-      summary: Return the current running version of BlueOS-bootstrap
+      # summary: Return the current running version of BlueOS-bootstrap
+      #! ===== Changed the name =====
+      summary: Return the current running version of CoratiaOS-bootstrap
       responses:
-        '200':
-          description: The current running version of BlueOS-bootstrap
+        "200":
+          # description: The current running version of BlueOS-bootstrap
+          #! ===== Changed the name =====
+          description: The current running version of CoratiaOS-bootstrap
     post:
       operationId: main.set_bootstrap_version
-      summary: Sets the current version of BlueOS-bootstrap to a new tag
+      # summary: Sets the current version of BlueOS-bootstrap to a new tag
+      #! ===== Changed the name =====
+      summary: Sets the current version of CoratiaOS-bootstrap to a new tag
       responses:
-        '200':
+        "200":
           description: Successfully set a new version
-        '400':
+        "400":
           description: Attempted to set an unavailable version
       requestBody:
         content:
@@ -65,21 +80,23 @@ paths:
     post:
       operationId: main.restart
       responses:
-        '200':
+        "200":
           description: Restart the currently running docker container
 
   /version/delete:
     delete:
       operationId: main.delete_version
-      summary: Delete the selected version of BlueOS
+      # summary: Delete the selected version of BlueOS
+      #! ===== Changed the name =====
+      summary: Delete the selected version of CoratiaOS
       responses:
-        '200':
+        "200":
           description: Version as deleted successfully
-        '404':
+        "404":
           description: Version does not exist
-        '403':
+        "403":
           description: Version can not be deleted
-        '500':
+        "500":
           description: Internal error while trying to delete the file
       requestBody:
         content:
@@ -89,7 +106,9 @@ paths:
               properties:
                 repository:
                   type: string
-                  example: bluerobotics/blueos-core
+                  # example: bluerobotics/blueos-core
+                  #! ===== Changed the path =====
+                  example: coratia/coratiaos-core
                 tag:
                   type: string
                   example: master
@@ -99,7 +118,7 @@ paths:
       operationId: main.get_available_local_versions
       summary: Returns available local versions
       responses:
-        '200':
+        "200":
           description: A list of versions available locally
           content:
             application/json:
@@ -109,7 +128,7 @@ paths:
                   local:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Version'
+                      $ref: "#/components/schemas/Version"
                   error:
                     type: string
                     example: "Unable to fetch sha."
@@ -132,7 +151,7 @@ paths:
           required: true
           example: blueos-core
       responses:
-        '200':
+        "200":
           description: A list of versions available locally and on the remote(s)
           content:
             application/json:
@@ -142,11 +161,11 @@ paths:
                   remote:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Version'
+                      $ref: "#/components/schemas/Version"
                   local:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Version'
+                      $ref: "#/components/schemas/Version"
                   error:
                     type: string
                     example: "Unable to fetch sha."
@@ -157,9 +176,9 @@ paths:
       summary: Pulls a version from dockerhub
 
       responses:
-        '200':
+        "200":
           description: Successfully set a new version
-        '400':
+        "400":
           description: Attempted to set an unavailable version
       requestBody:
         content:
@@ -169,7 +188,9 @@ paths:
               properties:
                 repository:
                   type: string
-                  example: bluerobotics/blueos-core
+                  # example: bluerobotics/blueos-core
+                  #! ===== Changed the path =====
+                  example: coratia/coratiaos-core
                 tag:
                   type: string
                   example: master
@@ -179,13 +200,13 @@ paths:
       operationId: main.load
       summary: Load a docker tar file
       responses:
-        '200':
+        "200":
           description: Successfully loaded the file
-        '400':
+        "400":
           description: Error while processing file
-        '500':
+        "500":
           description: Internal server error while processing docker import
-        '501':
+        "501":
           description: Failed to handle docker result
       requestBody:
         content:
@@ -203,9 +224,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DockerLoginInfo'
+              $ref: "#/components/schemas/DockerLoginInfo"
       responses:
-        '200':
+        "200":
           description: Successfully logged in
 
   /docker/logout/:
@@ -217,9 +238,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DockerLoginInfo'
+              $ref: "#/components/schemas/DockerLoginInfo"
       responses:
-        '200':
+        "200":
           description: Successfully logged out
 
   /docker/accounts/:
@@ -227,7 +248,7 @@ paths:
       operationId: main.docker_accounts
       summary: Get the list of accounts logged in
       responses:
-        '200':
+        "200":
           description: List of accounts logged in
           content:
             application/json:
@@ -237,7 +258,7 @@ paths:
                   accounts:
                     type: array
                     items:
-                      $ref: '#/components/schemas/DockerLoginInfo'
+                      $ref: "#/components/schemas/DockerLoginInfo"
 
 components:
   schemas:
@@ -246,7 +267,9 @@ components:
       properties:
         image:
           type: string
-          example: bluerobotics/blueos-core
+          # example: bluerobotics/blueos-core
+          #! ===== Changed the path =====
+          example: coratia/coratiaos-core
         tag:
           type: string
           example: master

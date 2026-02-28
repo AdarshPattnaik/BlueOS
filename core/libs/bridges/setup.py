@@ -13,7 +13,9 @@ with open(pathlib.Path(__file__).parent.joinpath("README.md"), "r", encoding="ut
 setuptools.setup(
     name="bridges",
     version="0.1.0",
-    description="BlueOS abstraction over bridges tool.",
+    # description="BlueOS abstraction over bridges tool.",
+    #! ===== Changed the name =====
+    description="CoratiaOS abstraction over bridges tool.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",

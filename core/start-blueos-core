@@ -234,4 +234,6 @@ for TUPLE in "${SERVICES[@]}"; do
     create_service "$NAME" "$EXECUTABLE" "$MEMORY_LIMIT_MB"
 done
 
-echo "BlueOS running!"
+# echo "BlueOS running!"
+# ===== Changed the output status for running state =====
+echo "CoratiaOS running!"

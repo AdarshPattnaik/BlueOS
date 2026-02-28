@@ -20,7 +20,9 @@ if __name__ == "__main__":
             " -v $HOME/.config/blueos:"
             " -v /var/logs/blueos:/var/logs/blueos"
             "/root/.config/blueos -e BLUEOS_CONFIG_PATH=$HOME/.config/blueos"
-            "bluerobotics/blueos-bootstrap:master"
+            # "bluerobotics/blueos-bootstrap:master"
+            #! ===== Changed the image =====
+            "coratia/coratiaos-bootstrap:master"
         )
         sys.exit(1)
 

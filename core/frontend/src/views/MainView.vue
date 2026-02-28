@@ -1,10 +1,6 @@
 <template>
   <v-container>
-    <v-row
-      class="mb-6 mt-6"
-      justify="center"
-      no-gutters
-    >
+    <v-row class="mb-6 mt-6" justify="center" no-gutters>
       <v-alert
         v-if="!current_network"
         border="top"
@@ -12,19 +8,26 @@
         type="info"
         elevation="2"
         dismissible
+        color="yellow"
       >
-        <h3>Welcome to BlueOS!</h3>
-        Before you start, we highly recommend <a
+        <!-- <h3>Welcome to BlueOS!</h3> -->
+        <!--! ===== Changed the name ===== -->
+        <h3>Welcome to CoratiaOS!</h3>
+        Before you start, we highly recommend
+        <a
           href="https://docs.bluerobotics.com/ardusub-zola/software/onboard/BlueOS-1.0/getting-started/#connect-wifi"
           target="_blank"
         >
           connecting to the internet
         </a>
-        and performing a <a
+        and performing a
+        <a
           href="https://docs.bluerobotics.com/ardusub-zola/software/onboard/BlueOS-1.0/getting-started/#select-version"
           target="_blank"
         >
-          system update to the latest available BlueOS version
+          <!-- system update to the latest available BlueOS version -->
+          <!--! ===== Changed the name ===== -->
+          system update to the latest available CoratiaOS version
         </a>
         .
       </v-alert>
@@ -33,32 +36,19 @@
     <div class="grid-holder">
       <div class="grid-holder-container">
         <div
-          v-for="({
-            icon, title, text, route, advanced,
-          }, i) in apps"
+          v-for="({ icon, title, text, route, advanced }, i) in apps"
           :key="i"
         >
-          <v-card
-            class="mb-3 px-3 rounded-xl app-card"
-            :href="route"
-          >
+          <v-card class="mb-3 px-3 rounded-xl app-card" :href="route">
             <v-theme-provider dark>
-              <v-row
-                class="py-3 px-3 d-flex justify-space-between flex-nowrap"
-              >
+              <v-row class="py-3 px-3 d-flex justify-space-between flex-nowrap">
                 <v-card-title
                   class="text-subtitle-2 font-weight-bold"
                   v-text="title"
                 />
                 <div>
-                  <v-avatar
-                    color="primary"
-                    size="50"
-                  >
-                    <v-icon
-                      large
-                      v-text="icon"
-                    />
+                  <v-avatar color="primary" size="50">
+                    <v-icon large v-text="icon" />
                   </v-avatar>
                 </div>
               </v-row>
@@ -69,13 +59,8 @@
                 v-tooltip="'This is an advanced feature'"
                 class="pirate-marker"
               >
-                <v-avatar
-                  color="error"
-                  size="35"
-                >
-                  <v-icon
-                    v-text="'mdi-skull-crossbones'"
-                  />
+                <v-avatar color="error" size="35">
+                  <v-icon v-text="'mdi-skull-crossbones'" />
                 </v-avatar>
               </div>
             </v-theme-provider>
@@ -91,17 +76,17 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 
-import SelfHealthTest from '@/components/health/SelfHealthTest.vue'
-import settings from '@/libs/settings'
-import wifi from '@/store/wifi'
-import { Network } from '@/types/wifi'
+import SelfHealthTest from "@/components/health/SelfHealthTest.vue";
+import settings from "@/libs/settings";
+import wifi from "@/store/wifi";
+import { Network } from "@/types/wifi";
 
-import menus, { menuItem } from '../menus'
+import menus, { menuItem } from "../menus";
 
 export default Vue.extend({
-  name: 'MainView',
+  name: "MainView",
   components: {
     SelfHealthTest,
   },
@@ -111,32 +96,31 @@ export default Vue.extend({
   }),
   computed: {
     apps() {
-      const items: menuItem[] = []
+      const items: menuItem[] = [];
       for (const item of this.menus) {
         if (item?.route && (!item.advanced || this.settings.is_pirate_mode)) {
-          items.push(item)
-          continue
+          items.push(item);
+          continue;
         }
 
         for (const subitem of item?.submenus || []) {
           if (!subitem.advanced || this.settings.is_pirate_mode) {
-            items.push(subitem)
+            items.push(subitem);
           }
         }
       }
-      return items
+      return items;
     },
     current_network(): Network | null {
-      return wifi.current_network
+      return wifi.current_network;
     },
   },
-})
+});
 </script>
 
 <style scoped>
-
 .rounded-card {
-  border-radius:50px;
+  border-radius: 50px;
 }
 
 div.pirate-marker {

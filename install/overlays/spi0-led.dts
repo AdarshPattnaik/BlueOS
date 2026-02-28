@@ -2,7 +2,7 @@
 // Raspberry Pi 4. It will configure only the spi0 mosi pin
 // (The other spi0 pins will not be driven by the spi0 peripheral,
 // and can be used for other functions). This is to be used with
-// the Blue Robotics Navigator autopilot hat, where the RGB
+// the Coratia Technologies Navigator autopilot hat, where the RGB
 // 'neopixel' led data pin is connected to the spi0 mosi pin on the
 // Raspberry Pi 4.
 

@@ -25,7 +25,9 @@ class VersionChooser:
     def __init__(self, client: aiodocker.Docker):
         self.client = client
         self.cleanup()
-        self.bootstrap_name = "blueos-bootstrap"
+        # self.bootstrap_name = "blueos-bootstrap"
+        #! ===== Changed the name =====
+        self.bootstrap_name = "coratiaos-bootstrap"
 
     @staticmethod
     def cleanup() -> None:
@@ -135,7 +137,9 @@ class VersionChooser:
 
         Args:
             request (web.Request): http request from aiohttp
-            repository (str): name of the image, such as bluerobotics/blueos-core
+            # repository (str): name of the image, such as bluerobotics/blueos-core
+            #! ===== Changed the name =====
+            repository (str): name of the image, such as coratia/coratiaos-core
             tag (str): image tag
 
         Returns:
@@ -195,7 +199,9 @@ class VersionChooser:
         except Exception as error:
             logger.critical(f"Warning: {type(error)}: {error}")
 
-        new_image_name = f"bluerobotics/blueos-bootstrap:{tag}"
+        # new_image_name = f"bluerobotics/blueos-bootstrap:{tag}"
+        #! ===== Changed the name =====
+        new_image_name = f"adarshpattnaik/coratiaos-bootstrap:{tag}"
 
         image_check = await self.is_valid_version(new_image_name)
         if not image_check[0]:
@@ -366,7 +372,9 @@ class VersionChooser:
         """Returns versions available locally and in the remote
 
         Args:
-            repository (str): repository name (such as bluerobotics/blueos-core)
+            # repository (str): repository name (such as bluerobotics/blueos-core)
+            #! ===== Changed the name =====
+            repository (str): repository name (such as coratia/coratiaos-core)
             tag (str): tag (such as "master" or "latest")
 
         Returns:

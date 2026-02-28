@@ -1,8 +1,10 @@
-version: '3.7'
+version: "3.7"
 services:
-  blueos-core:
-    image: bluerobotics/blueos-core:master
-    container_name: blueos-core
+  coratiaos-core:
+    # image: bluerobotics/blueos-core:master
+    #! ===== Changed the image path and name =====
+    image: coratia/coratiaos-core:master
+    container_name: coratiaos-core
     privileged: true
     # This can be used as an alternative to ports binding
     # Using host as a network mode is only supported for linux
@@ -67,4 +69,3 @@ services:
       - ./workspace/config:/root/.config
     extra_hosts:
       - "blueos:host-gateway"
-

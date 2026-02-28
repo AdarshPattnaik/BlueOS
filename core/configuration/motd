@@ -1,7 +1,14 @@
+<!-- Welcome to BlueOS 1.4! -->
 
-Welcome to BlueOS 1.4!
+<!-- ===== Changed the name ===== -->
 
-What you currently see is a tmux session built into BlueOS's docker container.
+Welcome to CoratiaOS 1.4!
+
+<!-- What you currently see is a tmux session built into BlueOS's docker container. -->
+
+<!-- ===== Changed the name ===== -->
+
+What you currently see is a tmux session built into CoratiaOS's docker container.
 This means you are not in the host Raspbian OS itself, and most of the data in here is
 not-persistent, except for things in /root/.config, although you should not store your data there.
 
@@ -10,7 +17,7 @@ To check all running services, press ctrl+b, then s. This will show all current 
 and is helpful for checking the state of individual services, restarting them, and checking their verbose outputs.
 
 To split the screen horizontally, press ctrl+b then %
-To split the screen vertically  press ctrl+b then "
+To split the screen vertically press ctrl+b then "
 To switch tabs, click them or press ctrl+b then use the directional keys in the keyboard
 
 To login into the Raspberry Pi itself, do `red-pill`.

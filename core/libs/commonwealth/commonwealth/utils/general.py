@@ -89,7 +89,7 @@ def file_is_open(path: Path) -> bool:
 def local_unique_identifier() -> str:
     blueos_uuid_path = "/etc/blueos/uuid"
 
-    # Try to get an uuid4 from BlueOS of previous boots
+    # Try to get an uuid4 from CoratiaOS of previous boots
     try:
         with open(blueos_uuid_path, "r", encoding="utf-8") as f:
             uuid4 = "".join(f.read().split())
@@ -97,11 +97,15 @@ def local_unique_identifier() -> str:
                 uuid.UUID(uuid4, version=4)
                 return uuid4
             except ValueError:
-                logger.warning(f"Local BlueOS uuid is not valid: {uuid4}")
+                # logger.warning(f"Local BlueOS uuid is not valid: {uuid4}")
+                #! ===== Changed the name =====
+                logger.warning(f"Local CoratiaOS uuid is not valid: {uuid4}")
     except Exception as error:
-        logger.warning(f"Could not get BlueOS's uuid. {error}")
+        # logger.warning(f"Could not get BlueOS's uuid. {error}")
+        #! ===== Changed the name =====
+        logger.warning(f"Could not get CoratiaOS's uuid. {error}")
 
-    # We failed, going to generate a new BlueOS uuid
+    # We failed, going to generate a new CoratiaOS uuid
     uuid4 = uuid.uuid4().hex
     try:
         with open(blueos_uuid_path, "w+", encoding="utf-8") as f:

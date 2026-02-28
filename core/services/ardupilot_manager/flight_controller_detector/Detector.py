@@ -58,7 +58,7 @@ class Detector:
         boards = [
             FlightController(
                 name=port.product or port.name,
-                manufacturer=port.manufacturer,
+                manufacturer='Coratia Technologies',
                 platform=Detector.detect_serial_platform(port)
                 or Platform(),  # this is just to make CI happy. check line 82
                 path=port.device,
@@ -74,7 +74,7 @@ class Detector:
 
     @staticmethod
     def detect_sitl() -> FlightController:
-        return FlightController(name="SITL", manufacturer="ArduPilot Team", platform=Platform.SITL)
+        return FlightController(name="SITL", manufacturer="Coratia Technologies", platform=Platform.SITL)
 
     @classmethod
     async def detect(cls, include_sitl: bool = True) -> List[FlightController]:

@@ -1,4 +1,4 @@
-# BlueOS
+# CoratiaOS
 
 [![Test, Build and Deploy Images](https://github.com/bluerobotics/BlueOS/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/bluerobotics/BlueOS/actions/workflows/test-and-deploy.yml)
 ![Downloads](https://img.shields.io/github/downloads/bluerobotics/blueos/total?label=Downloads)
@@ -8,7 +8,6 @@
 
 [![Latest Beta](https://img.shields.io/github/v/tag/bluerobotics/blueos.svg?label=Latest%20Beta)
 ![Date](https://img.shields.io/github/release-date-pre/bluerobotics/blueos?label=Date)](https://github.com/bluerobotics/BlueOS/releases)
-
 
 [![Docker](https://img.shields.io/docker/v/bluerobotics/blueos-core?label=Docker&style=flat)
 ![Pulls](https://img.shields.io/docker/pulls/bluerobotics/blueos-core?label=Pulls)
@@ -35,14 +34,14 @@ BlueOS is a modular, robust, and efficient platform for managing a vehicle or ro
 
 The development of BlueOS is driven by the following core principles:
 
-* An interface that is **simple by default but powerful when needed** - the user has the power to change anything they desire and customize the full experience
-* **Designed to focus on what matters**, improving user access to information and controls with a human-friendly UI and UX
-* **Make complex tasks simpler** and improve ease of use by reusing design patterns from other applications (based on the [material UI guidelines](https://material.io/design/guidelines-overview))
-* **Advanced error handling and detection**, making any problems clear to the user and developers, along with how to fix them
-* **Simplify development**, providing full access to our [services API](https://blueos.cloud/docs/blueos/1.1/development/core/#services) and [modular development model](https://blueos.cloud/docs/blueos/1.1/development/overview/)
-* **Portable and flexible**, you should be able to run on a Raspberry Pi 3/4 or any SBC with Linux operating system, contributions are welcomed
-* **Highly functional with low CPU usage**, the entire system is built to run efficiently
-* **Developed on solid foundations**, critical parts or intensive workforce services are designed using the most advanced languages and features available for stability
+- An interface that is **simple by default but powerful when needed** - the user has the power to change anything they desire and customize the full experience
+- **Designed to focus on what matters**, improving user access to information and controls with a human-friendly UI and UX
+- **Make complex tasks simpler** and improve ease of use by reusing design patterns from other applications (based on the [material UI guidelines](https://material.io/design/guidelines-overview))
+- **Advanced error handling and detection**, making any problems clear to the user and developers, along with how to fix them
+- **Simplify development**, providing full access to our [services API](https://blueos.cloud/docs/blueos/1.1/development/core/#services) and [modular development model](https://blueos.cloud/docs/blueos/1.1/development/overview/)
+- **Portable and flexible**, you should be able to run on a Raspberry Pi 3/4 or any SBC with Linux operating system, contributions are welcomed
+- **Highly functional with low CPU usage**, the entire system is built to run efficiently
+- **Developed on solid foundations**, critical parts or intensive workforce services are designed using the most advanced languages and features available for stability
 
 The design, organization, and future releases of BlueOS are aligned with these principles, striving to provide an optimized and enriched user experience.
 
@@ -68,7 +67,7 @@ ArduRover is an open-source, uncrewed boat platform. Whether you are commanding 
 
 ### **Submarines (ArduSub)**
 
-ArduSub is the go-to control system for remotely operated underwater vehicles (ROVs) 🐟. BlueOS offers seamless integration with ArduSub, enabling efficient management and operation of underwater vehicles. 
+ArduSub is the go-to control system for remotely operated underwater vehicles (ROVs) 🐟. BlueOS offers seamless integration with ArduSub, enabling efficient management and operation of underwater vehicles.
 
 [BlueROV2](https://bluerobotics.com/store/rov/bluerov2/) is supported out of the box.
 
@@ -78,7 +77,7 @@ ArduSub is the go-to control system for remotely operated underwater vehicles (R
 
 BlueOS provides generic support for a wide variety of terrestrial, aerial, and marine uncrewed vehicles that use ArduPilot and PX4 autopilots. This extends the range of vehicles that can be managed using our system, from drones to autonomous cars and more.
 
->**Note:** Specific vehicle configuration may be necessary to ensure optimal performance with BlueOS.
+> **Note:** Specific vehicle configuration may be necessary to ensure optimal performance with BlueOS.
 
 ## Supported Architectures 👨🏻‍💻
 

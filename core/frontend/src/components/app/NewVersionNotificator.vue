@@ -24,14 +24,14 @@
   </v-dialog>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 
-import settings from '@/libs/settings'
-import { Version, VersionsQuery } from '@/types/version-chooser'
-import * as VCU from '@/utils/version_chooser'
+import settings from "@/libs/settings";
+import { Version, VersionsQuery } from "@/types/version-chooser";
+import * as VCU from "@/utils/version_chooser";
 
 export default Vue.extend({
-  name: 'NewVersionNotificator',
+  name: "NewVersionNotificator",
   data() {
     return {
       available_versions: {
@@ -39,49 +39,57 @@ export default Vue.extend({
         remote: [],
         error: null,
       } as VersionsQuery,
-      current_version: null as (null | Version),
-      latest_beta: undefined as (undefined | Version),
-      latest_stable: undefined as (undefined | Version),
-      selected_image: 'bluerobotics/blueos-core',
-      latest_version: undefined as (undefined | Version),
+      current_version: null as null | Version,
+      latest_beta: undefined as undefined | Version,
+      latest_stable: undefined as undefined | Version,
+      // selected_image: 'bluerobotics/blueos-core',
+      //! ===== Changed the path for image selection =====
+      selected_image: "coratia/coratiaos-core",
+      latest_version: undefined as undefined | Version,
       should_open: false,
-    }
+    };
   },
   mounted() {
-    this.run()
+    this.run();
   },
   methods: {
     latestVersion(): boolean {
-      return this.latest_version !== undefined
-        && this.current_version !== undefined
-        && this.latest_version?.sha !== this.current_version?.sha
+      return (
+        this.latest_version !== undefined &&
+        this.current_version !== undefined &&
+        this.latest_version?.sha !== this.current_version?.sha
+      );
     },
     async run() {
-      await VCU.loadCurrentVersion()
-        .then((image) => {
-          this.current_version = image
-          this.selected_image = image.repository
-        })
+      await VCU.loadCurrentVersion().then((image) => {
+        this.current_version = image;
+        this.selected_image = image.repository;
+      });
 
       await VCU.loadAvailableVersions(this.selected_image)
         .then((versions_query) => {
-          this.available_versions = versions_query
+          this.available_versions = versions_query;
         })
         .finally(() => {
           if (this.available_versions.error) {
-            return
+            return;
           }
-          this.available_versions = VCU.sortImages(this.available_versions)
-          this.latest_beta = VCU.getLatestBeta(this.available_versions)
-          this.latest_stable = VCU.getLatestStable(this.available_versions)
+          this.available_versions = VCU.sortImages(this.available_versions);
+          this.latest_beta = VCU.getLatestBeta(this.available_versions);
+          this.latest_stable = VCU.getLatestStable(this.available_versions);
           if (this.current_version) {
-            this.latest_version = VCU.getLatestVersion(this.available_versions, this.current_version)
+            this.latest_version = VCU.getLatestVersion(
+              this.available_versions,
+              this.current_version,
+            );
           }
-          const milliseconds_diff = Date.now() - settings.last_version_update_notification_time.getTime()
-          const days_diff = milliseconds_diff / (24 * 60 * 60 * 1000)
+          const milliseconds_diff =
+            Date.now() -
+            settings.last_version_update_notification_time.getTime();
+          const days_diff = milliseconds_diff / (24 * 60 * 60 * 1000);
           if (days_diff > 1) {
-            settings.updateVersionUpdateNotificationTime()
-            this.should_open = this.latestVersion()
+            settings.updateVersionUpdateNotificationTime();
+            this.should_open = this.latestVersion();
           }
         })
         .catch((error) => {
@@ -89,9 +97,9 @@ export default Vue.extend({
             local: [],
             remote: [],
             error: `Failed to communicate with backend: ${error}`,
-          }
-        })
+          };
+        });
     },
   },
-})
+});
 </script>

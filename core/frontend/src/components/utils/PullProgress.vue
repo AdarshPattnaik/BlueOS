@@ -17,7 +17,9 @@
           :value="extraction"
           stream
           class="mt-5 mb-5"
-          color="blue"
+          <!-- color="blue" -->
+          <!--! ===== Changed the color ===== -->
+          color="yellow"
           height="20"
         >
           <template #default>

@@ -41,13 +41,25 @@
         <v-stepper-items>
           <v-stepper-content step="0">
             <v-card class="ma-2 pa-5">
-              <div class="welcome" style="display: flex; justify-content: center; align-items: center; width: 100%;">
-                Welcome to BlueOS!
+              <div
+                class="welcome"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  width: 100%;
+                "
+              >
+                <!-- Welcome to BlueOS! -->
+                <!--! ===== Changed the name ===== -->
+                Welcome to CoratiaOS!
               </div>
-              Welcome to BlueOS!
-              In this setup wizard we will guide you through the initial configuration of your vehicle,
-              including setting up the vehicle name, hostname, and <b>firmware</b>.
-              If your vehicle is already set up, you can skip this wizard.
+              <!-- Welcome to BlueOS! -->
+              <!--! ===== Changed the name ===== -->
+              Welcome to CoratiaOS! In this setup wizard we will guide you
+              through the initial configuration of your vehicle, including
+              setting up the vehicle name, hostname, and <b>firmware</b>. If
+              your vehicle is already set up, you can skip this wizard.
             </v-card>
             <v-row class="pa-5 justify-space-between">
               <v-row class="pl-3 pt-2">
@@ -59,27 +71,13 @@
                   Skip Wizard
                 </v-btn>
               </v-row>
-              <v-btn
-                color="primary"
-                @click="nextStep()"
-              >
-                Start
-              </v-btn>
+              <v-btn color="primary" @click="nextStep()"> Start </v-btn>
             </v-row>
           </v-stepper-content>
           <v-stepper-content step="1">
-            <RequireInternet
-              v-if="step_number === 1"
-              @next="nextStep()"
-            />
+            <RequireInternet v-if="step_number === 1" @next="nextStep()" />
             <v-row class="pa-5 mt-5">
-              <v-btn
-
-                color="warning"
-                @click="cancel()"
-              >
-                Cancel wizard
-              </v-btn>
+              <v-btn color="warning" @click="cancel()"> Cancel wizard </v-btn>
             </v-row>
           </v-stepper-content>
           <v-stepper-content step="2">
@@ -132,10 +130,7 @@
               <v-text-field v-model="vehicle_name" label="Vehicle Name" />
               <v-text-field v-model="mdns_name" label="MDNS Name" />
             </div>
-            <ScriptLoader
-              v-model="scripts"
-              :vehicle="vehicle_type"
-            />
+            <ScriptLoader v-model="scripts" :vehicle="vehicle_type" />
             <DefaultParamLoader
               ref="param_loader"
               v-model="params"
@@ -172,7 +167,9 @@
                 @next="handleNextVehicleConfiguration"
               />
             </div>
-            <v-row class="pa-5 pt-10 flex-row justify-space-around align-center grow">
+            <v-row
+              class="pa-5 pt-10 flex-row justify-space-around align-center grow"
+            >
               <v-btn
                 color="warning"
                 :disabled="apply_in_progress || apply_done"
@@ -230,23 +227,23 @@
         </v-stepper-items>
       </v-stepper>
     </v-card>
-    <v-dialog
-      v-model="show_skip"
-      width="fit-content"
-      max-width="80%"
-    >
+    <v-dialog v-model="show_skip" width="fit-content" max-width="80%">
       <v-card>
-        <v-card-title class="text-lg-h4 font-weight-bold" style="justify-content: center;">
+        <v-card-title
+          class="text-lg-h4 font-weight-bold"
+          style="justify-content: center"
+        >
           Aborting wizard
         </v-card-title>
-        <v-card-text class="text-xs-center" style="max-width: 33rem;">
-          Proceeding with the setup wizard is crucial for proper vehicle configuration.
-
-          Are you certain that you wish to skip this step?
+        <v-card-text class="text-xs-center" style="max-width: 33rem">
+          Proceeding with the setup wizard is crucial for proper vehicle
+          configuration. Are you certain that you wish to skip this step?
         </v-card-text>
         <v-card-actions class="justify-center pa-4">
           <v-btn
-            v-tooltip="'The wizard will show again during BlueOS usage'"
+            <!-- v-tooltip="'The wizard will show again during BlueOS usage'" -->
+            <!--! ===== Changed the name ===== -->
+            v-tooltip="'The wizard will show again during CoratiaOS usage'"
             color="warning"
             @click="skipWizard()"
           >
@@ -254,7 +251,13 @@
           </v-btn>
           <v-spacer />
           <v-btn
-            v-tooltip="'The wizard will only show if BlueOS is updated and further configuration is necessary'"
+            <!-- v-tooltip="
+              'The wizard will only show if BlueOS is updated and further configuration is necessary'
+            " -->
+            <!--! ===== Changed the name ===== -->
+            v-tooltip="
+              'The wizard will only show if CoratiaOS is updated and further configuration is necessary'
+            "
             color="error"
             @click="skipWizard(false)"
           >
@@ -267,46 +270,56 @@
 </template>
 
 <script lang="ts">
-import '@google/model-viewer/dist/model-viewer'
+import "@google/model-viewer/dist/model-viewer";
 
-import { SemVer } from 'semver'
-import Vue from 'vue'
+import { SemVer } from "semver";
+import Vue from "vue";
 
 import {
   availableFirmwares,
   fetchFirmwareInfo,
   installFirmwareFromUrl,
-} from '@/components/autopilot/AutopilotManagerUpdater'
-import filebrowser from '@/libs/filebrowser'
-import mavlink2rest from '@/libs/MAVLink2Rest'
-import { MavCmd } from '@/libs/MAVLink2Rest/mavlink2rest-ts/messages/mavlink2rest-enum'
-import ardupilot_data from '@/store/autopilot'
-import autopilot from '@/store/autopilot_manager'
-import bag from '@/store/bag'
-import beacon from '@/store/beacon'
-import wifi from '@/store/wifi'
-import { Firmware, Vehicle, vehicleTypeFromString } from '@/types/autopilot'
-import { Dictionary } from '@/types/common'
-import back_axios from '@/utils/api'
-import { sleep } from '@/utils/helper_functions'
+} from "@/components/autopilot/AutopilotManagerUpdater";
+import filebrowser from "@/libs/filebrowser";
+import mavlink2rest from "@/libs/MAVLink2Rest";
+import { MavCmd } from "@/libs/MAVLink2Rest/mavlink2rest-ts/messages/mavlink2rest-enum";
+import ardupilot_data from "@/store/autopilot";
+import autopilot from "@/store/autopilot_manager";
+import bag from "@/store/bag";
+import beacon from "@/store/beacon";
+import wifi from "@/store/wifi";
+import { Firmware, Vehicle, vehicleTypeFromString } from "@/types/autopilot";
+import { Dictionary } from "@/types/common";
+import back_axios from "@/utils/api";
+import { sleep } from "@/utils/helper_functions";
 
-import ActionStepper, { Configuration, ConfigurationStatus } from './ActionStepper.vue'
-import DefaultParamLoader from './DefaultParamLoader.vue'
-import RequireInternet from './RequireInternet.vue'
-import ScriptLoader from './ScriptLoader.vue'
+import ActionStepper, {
+  Configuration,
+  ConfigurationStatus,
+} from "./ActionStepper.vue";
+import DefaultParamLoader from "./DefaultParamLoader.vue";
+import RequireInternet from "./RequireInternet.vue";
+import ScriptLoader from "./ScriptLoader.vue";
 
-const WIZARD_VERSION = 4
+const WIZARD_VERSION = 4;
 
-const REPOSITORY_ROOT = 'https://docs.bluerobotics.com/Blueos-Parameter-Repository'
+const REPOSITORY_ROOT =
+  "https://docs.bluerobotics.com/Blueos-Parameter-Repository";
 
-const models: Record<string, string> = import.meta.glob('/public/assets/vehicles/models/**', { eager: true })
+const models: Record<string, string> = import.meta.glob(
+  "/public/assets/vehicles/models/**",
+  { eager: true },
+);
 
-function get_model(vehicle_name: string, frame_name: string): undefined | string {
-  const release_path = `assets/vehicles/models/${vehicle_name}/${frame_name}.glb`
+function get_model(
+  vehicle_name: string,
+  frame_name: string,
+): undefined | string {
+  const release_path = `assets/vehicles/models/${vehicle_name}/${frame_name}.glb`;
   if (models[`/public/${release_path}`]) {
-    return `/assets/vehicles/models/${vehicle_name}/${frame_name}.glb`
+    return `/assets/vehicles/models/${vehicle_name}/${frame_name}.glb`;
   }
-  return undefined
+  return undefined;
 }
 
 enum ApplyStatus {
@@ -319,13 +332,13 @@ enum ApplyStatus {
 // There is no type that could serve for generic binds and generic vue components
 interface VehicleConfigurationPage {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  page: any,
+  page: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  binds: any,
+  binds: any;
 }
 
 export default Vue.extend({
-  name: 'Wizard',
+  name: "Wizard",
   components: {
     DefaultParamLoader,
     RequireInternet,
@@ -333,18 +346,20 @@ export default Vue.extend({
   },
   data() {
     return {
-      boat_model: get_model('boat', 'UNDEFINED'),
+      boat_model: get_model("boat", "UNDEFINED"),
       scripts: [] as string[],
       configuration_failed: false,
-      error_message: 'The operation failed!',
+      error_message: "The operation failed!",
       apply_status: ApplyStatus.Waiting,
-      mdns_name: 'blueos',
+      // mdns_name: "blueos",
+      // ===== Changed the name =====
+      mdns_name: "coratiaos",
       show_skip: false,
       should_open: false,
       step_number: 0,
-      sub_model: get_model('sub', 'bluerov'),
-      vehicle_name: 'blueos',
-      vehicle_type: '' as Vehicle | string,
+      sub_model: get_model("sub", "bluerov"),
+      vehicle_name: "JalaSimha",
+      vehicle_type: "" as Vehicle | string,
       vehicle_image: null as string | null,
       // Allow us to check if the user is stuck in retry
       retry_count: 0,
@@ -356,17 +371,17 @@ export default Vue.extend({
       // Vehicle configuration page logic
       vehicle_configuration_pages: [] as VehicleConfigurationPage[],
       configuration_page_index: 0,
-    }
+    };
   },
   computed: {
     allow_abort(): boolean {
-      return this.retry_count > 2
+      return this.retry_count > 2;
     },
     apply_done(): boolean {
-      return this.apply_status === ApplyStatus.Done
+      return this.apply_status === ApplyStatus.Done;
     },
     apply_in_progress(): boolean {
-      return this.apply_status === ApplyStatus.InProgress
+      return this.apply_status === ApplyStatus.InProgress;
     },
     configuration_pages(): VehicleConfigurationPage[] {
       return [
@@ -378,70 +393,76 @@ export default Vue.extend({
             loading: this.apply_in_progress,
           },
         },
-      ]
+      ];
     },
     current_page(): unknown {
-      return this.configuration_pages[this.configuration_page_index].page
+      return this.configuration_pages[this.configuration_page_index].page;
     },
     current_page_bind(): unknown {
-      return this.configuration_pages[this.configuration_page_index].binds
+      return this.configuration_pages[this.configuration_page_index].binds;
     },
   },
 
   watch: {
     apply_done(new_value: boolean) {
       if (new_value) {
-        this.setWizardVersion()
-        setTimeout(() => { this.nextStep() }, 2000)
+        this.setWizardVersion();
+        setTimeout(() => {
+          this.nextStep();
+        }, 2000);
       }
     },
     step_number: {
       handler(new_value: number) {
         if (new_value === 5) {
-          this.delayed_close()
+          this.delayed_close();
         }
       },
     },
   },
   async mounted() {
-    this.retry_count = 0
+    this.retry_count = 0;
 
-    fetchFirmwareInfo()
-    const wizard = await bag.getData('wizard')
+    fetchFirmwareInfo();
+    const wizard = await bag.getData("wizard");
 
     // Failed to communicate with the bag service
     if (wizard === undefined) {
-      return
+      return;
     }
 
     if (wizard?.version !== WIZARD_VERSION) {
-      this.should_open = true
+      this.should_open = true;
     }
   },
   methods: {
     delayed_close() {
-      setTimeout(() => { this.close() }, 3000)
+      setTimeout(() => {
+        this.close();
+      }, 3000);
     },
     close() {
-      this.should_open = false
-      setTimeout(() => { window.location.reload() }, 500)
+      this.should_open = false;
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     },
     cancel() {
-      this.step_number = 100
+      this.step_number = 100;
     },
     abort() {
-      this.step_number = 101
+      this.step_number = 101;
     },
     nextStep() {
-      this.step_number += 1
+      this.step_number += 1;
     },
     handleNextVehicleConfiguration() {
-      this.configuration_page_index += 1
+      this.configuration_page_index += 1;
     },
     async finalConfigurations() {
       this.configurations = [
         {
-          title: 'Set custom vehicle name',
+          title: "Set custom vehicle name",
           summary: `Set vehicle name for the user: ${this.vehicle_name}`,
           promise: () => this.setHostname(),
           message: undefined,
@@ -450,7 +471,7 @@ export default Vue.extend({
           started: false,
         },
         {
-          title: 'Set vehicle hostname',
+          title: "Set vehicle hostname",
           summary: `Set hostname to be used for mDNS address: ${this.mdns_name}.local`,
           promise: () => this.setVehicleName(),
           message: undefined,
@@ -459,8 +480,8 @@ export default Vue.extend({
           started: false,
         },
         {
-          title: 'Set vehicle image',
-          summary: 'Set image to be used for vehicle thumbnail',
+          title: "Set vehicle image",
+          summary: "Set image to be used for vehicle thumbnail",
           promise: () => this.setVehicleImage(),
           message: undefined,
           done: false,
@@ -468,36 +489,41 @@ export default Vue.extend({
           started: false,
         },
         ...this.setup_configurations,
-      ]
+      ];
     },
     async applyConfigurations() {
-      this.apply_status = ApplyStatus.InProgress
-      this.apply_status = await Promise.all(this.configurations.map(async (config) => {
-        config.started = true
-        config.message = undefined
-        if (!config.done && !config.skip) {
-          config.message = await config.promise()
-          config.done = config.message === undefined
-          config.started = false
-        }
-        return config
-      })).then((configs) => configs.every((config) => config.done || config.skip))
-        ? ApplyStatus.Done : ApplyStatus.Failed
-      this.retry_count += 1
+      this.apply_status = ApplyStatus.InProgress;
+      this.apply_status = (await Promise.all(
+        this.configurations.map(async (config) => {
+          config.started = true;
+          config.message = undefined;
+          if (!config.done && !config.skip) {
+            config.message = await config.promise();
+            config.done = config.message === undefined;
+            config.started = false;
+          }
+          return config;
+        }),
+      ).then((configs) =>
+        configs.every((config) => config.done || config.skip),
+      ))
+        ? ApplyStatus.Done
+        : ApplyStatus.Failed;
+      this.retry_count += 1;
     },
     setupBoat() {
-      this.vehicle_type = Vehicle.Rover
-      this.vehicle_name = 'BlueBoat'
-      this.vehicle_image = '/assets/vehicles/images/bb120.png'
-      this.step_number += 1
+      this.vehicle_type = Vehicle.Rover;
+      this.vehicle_name = "BlueBoat";
+      this.vehicle_image = "/assets/vehicles/images/bb120.png";
+      this.step_number += 1;
 
-      this.vehicle_configuration_pages = [
-      ]
+      this.vehicle_configuration_pages = [];
 
       this.setup_configurations = [
         {
-          title: 'Update boat firmware',
-          summary: 'Download and install a desirable stable firmware on the vehicle',
+          title: "Update boat firmware",
+          summary:
+            "Download and install a desirable stable firmware on the vehicle",
           promise: () => this.installLatestStableFirmware(Vehicle.Rover),
           message: undefined,
           done: false,
@@ -505,8 +531,8 @@ export default Vue.extend({
           started: false,
         },
         {
-          title: 'Install scripts',
-          summary: 'Download and install selected scripts',
+          title: "Install scripts",
+          summary: "Download and install selected scripts",
           promise: () => this.installScripts(),
           message: undefined,
           done: false,
@@ -514,8 +540,9 @@ export default Vue.extend({
           started: false,
         },
         {
-          title: 'Disable Wi-Fi hotspot',
-          summary: 'Wi-Fi hotspot need to be disable to not interfere with onboard radio',
+          title: "Disable Wi-Fi hotspot",
+          summary:
+            "Wi-Fi hotspot need to be disable to not interfere with onboard radio",
           promise: () => this.disableWifiHotspot(),
           message: undefined,
           done: false,
@@ -523,190 +550,225 @@ export default Vue.extend({
           started: false,
         },
         {
-          title: 'Disable smart Wi-Fi hotspot',
-          summary: 'Disable hotspot to be turned on if there is no Wi-Fi network available',
+          title: "Disable smart Wi-Fi hotspot",
+          summary:
+            "Disable hotspot to be turned on if there is no Wi-Fi network available",
           promise: () => this.disableSmartWifiHotspot(),
           message: undefined,
           done: false,
           skip: false,
           started: false,
         },
-      ]
+      ];
     },
     setupOther() {
-      this.step_number += 1
-      this.vehicle_configuration_pages = [
-      ]
-      this.vehicle_type = Vehicle.Other
+      this.step_number += 1;
+      this.vehicle_configuration_pages = [];
+      this.vehicle_type = Vehicle.Other;
     },
     async setupConfiguration() {
-      this.step_number += 1
-      if (this.step_number >= 3 && this.configuration_page_index >= this.vehicle_configuration_pages.length) {
-        this.finalConfigurations()
+      this.step_number += 1;
+      if (
+        this.step_number >= 3 &&
+        this.configuration_page_index >= this.vehicle_configuration_pages.length
+      ) {
+        this.finalConfigurations();
       }
     },
     setupROV() {
-      this.vehicle_type = Vehicle.Sub
-      this.vehicle_name = 'BlueROV'
-      this.vehicle_image = '/assets/vehicles/images/bluerov2.png'
-      this.step_number += 1
+      this.vehicle_type = Vehicle.Sub;
+      this.vehicle_name = "BlueROV";
+      this.vehicle_image = "/assets/vehicles/images/bluerov2.png";
+      this.step_number += 1;
 
-      this.vehicle_configuration_pages = [
-      ]
+      this.vehicle_configuration_pages = [];
 
       this.setup_configurations = [
         {
-          title: 'Install stable sub firmware',
-          summary: 'Download and install a desirable stable firmware on the vehicle',
+          title: "Install stable sub firmware",
+          summary:
+            "Download and install a desirable stable firmware on the vehicle",
           promise: () => this.installLatestStableFirmware(Vehicle.Sub),
           message: undefined,
           done: false,
           skip: false,
           started: false,
         },
-      ]
+      ];
     },
     async skipWizard(remindLater = true) {
       if (!remindLater) {
-        this.setWizardVersion()
+        this.setWizardVersion();
       }
-      this.cancel()
-      this.show_skip = false
+      this.cancel();
+      this.show_skip = false;
     },
     async setWizardVersion(): Promise<ConfigurationStatus> {
-      const failed = 'Configuration done, but failed to set wizard version.'
-      const payload = { version: WIZARD_VERSION }
-      return bag.setData('wizard', payload)
-        // eslint-disable-next-line no-confusing-arrow
-        .then((result) => result ? undefined : failed)
-        .catch(() => failed)
+      const failed = "Configuration done, but failed to set wizard version.";
+      const payload = { version: WIZARD_VERSION };
+      return (
+        bag
+          .setData("wizard", payload)
+          // eslint-disable-next-line no-confusing-arrow
+          .then((result) => (result ? undefined : failed))
+          .catch(() => failed)
+      );
     },
     async setHostname(): Promise<ConfigurationStatus> {
-      return beacon.setHostname(this.mdns_name)
+      return beacon
+        .setHostname(this.mdns_name)
         .then(() => undefined)
-        .catch(() => 'Failed to set vehicle hostname for mDNS')
+        .catch(() => "Failed to set vehicle hostname for mDNS");
     },
     async setVehicleImage(): Promise<ConfigurationStatus> {
-      const failed = 'Failed to set vehicle Image.'
-      const payload = { url: this.vehicle_image }
-      return bag.setData('vehicle.image_path', payload)
-        // eslint-disable-next-line no-confusing-arrow
-        .then((result) => result ? undefined : failed)
-        .catch(() => failed)
+      const failed = "Failed to set vehicle Image.";
+      const payload = { url: this.vehicle_image };
+      return (
+        bag
+          .setData("vehicle.image_path", payload)
+          // eslint-disable-next-line no-confusing-arrow
+          .then((result) => (result ? undefined : failed))
+          .catch(() => failed)
+      );
     },
     async setVehicleName(): Promise<ConfigurationStatus> {
-      return beacon.setVehicleName(this.vehicle_name)
+      return beacon
+        .setVehicleName(this.vehicle_name)
         .then(() => undefined)
-        .catch(() => 'Failed to set custom vehicle name')
+        .catch(() => "Failed to set custom vehicle name");
     },
     async disableWifiHotspot(): Promise<ConfigurationStatus> {
       return back_axios({
-        method: 'post',
+        method: "post",
         url: `${wifi.API_URL}/hotspot`,
         params: { enable: false },
         timeout: 20000,
       })
         .then(() => undefined)
-        .catch((error) => `Failed to disable wifi hotspot: ${error.message ?? error.response?.data}.`)
+        .catch(
+          (error) =>
+            `Failed to disable wifi hotspot: ${error.message ?? error.response?.data}.`,
+        );
     },
     async disableSmartWifiHotspot(): Promise<ConfigurationStatus> {
       return back_axios({
-        method: 'post',
+        method: "post",
         url: `${wifi.API_URL}/smart_hotspot`,
         params: { enable: false },
         timeout: 10000,
       })
         .then(() => undefined)
-        .catch((error) => `Failed to disable smart wifi hotspot: ${error.message ?? error.response?.data}.`)
+        .catch(
+          (error) =>
+            `Failed to disable smart wifi hotspot: ${error.message ?? error.response?.data}.`,
+        );
     },
-    async installLatestStableFirmware(vehicle: Vehicle): Promise<ConfigurationStatus> {
+    async installLatestStableFirmware(
+      vehicle: Vehicle,
+    ): Promise<ConfigurationStatus> {
       if (this.retry_count) {
-        console.debug('Going to reboot flight controller on retry.')
-        mavlink2rest.sendMessage(
-          {
-            header: {
-              system_id: 255,
-              component_id: 0,
-              sequence: 0,
-            },
-            message: {
-              type: 'COMMAND_LONG',
-              // 0: Nothing,
-              // 1: Reboot autopilot,
-              // 2: Shutdown autopilot,
-              // 3: Reboot autopilot and keep it in the bootloader until upgraded.
-              param1: 1,
-              param2: 0, // Companion
-              param3: 0, // Component
-              param4: 0, // Component ID for param3
-              param5: 0,
-              param6: 0,
-              param7: 0,
-              command: {
-                type: MavCmd.MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN,
-              },
-              target_system: ardupilot_data.system_id,
-              target_component: 1,
-              confirmation: 0,
-            },
+        console.debug("Going to reboot flight controller on retry.");
+        mavlink2rest.sendMessage({
+          header: {
+            system_id: 255,
+            component_id: 0,
+            sequence: 0,
           },
-        )
+          message: {
+            type: "COMMAND_LONG",
+            // 0: Nothing,
+            // 1: Reboot autopilot,
+            // 2: Shutdown autopilot,
+            // 3: Reboot autopilot and keep it in the bootloader until upgraded.
+            param1: 1,
+            param2: 0, // Companion
+            param3: 0, // Component
+            param4: 0, // Component ID for param3
+            param5: 0,
+            param6: 0,
+            param7: 0,
+            command: {
+              type: MavCmd.MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN,
+            },
+            target_system: ardupilot_data.system_id,
+            target_component: 1,
+            confirmation: 0,
+          },
+        });
         // Wait for 20 seconds for flight controller to reboot
-        await sleep(20000)
+        await sleep(20000);
       }
 
       return availableFirmwares(vehicle)
         .then((firmwares: Firmware[]) => {
-          const found: Firmware | undefined = firmwares.find((firmware) => firmware.name.includes('STABLE'))
+          const found: Firmware | undefined = firmwares.find((firmware) =>
+            firmware.name.includes("STABLE"),
+          );
           if (found === undefined) {
-            return `Failed to find a stable version for vehicle (${vehicle})`
+            return `Failed to find a stable version for vehicle (${vehicle})`;
           }
-          const newVersion = new SemVer(found?.name.replace('STABLE-', '').trim())
-          const currentVersion = autopilot?.firmware_info?.version ?? new SemVer('0.0.0')
-          const vehicleType = vehicleTypeFromString(autopilot?.vehicle_type ?? '')
+          const newVersion = new SemVer(
+            found?.name.replace("STABLE-", "").trim(),
+          );
+          const currentVersion =
+            autopilot?.firmware_info?.version ?? new SemVer("0.0.0");
+          const vehicleType = vehicleTypeFromString(
+            autopilot?.vehicle_type ?? "",
+          );
           if (vehicleType === vehicle && newVersion <= currentVersion) {
             // TODO: allow returning strings on success
-            return undefined // 'Firmware is already up to date.'
+            return undefined; // 'Firmware is already up to date.'
           }
           return installFirmwareFromUrl(found.url, true, this.params)
             .then(() => undefined)
-            .catch((error) => `Failed to install firmware: ${error.message ?? error.response?.data}.`)
+            .catch(
+              (error) =>
+                `Failed to install firmware: ${error.message ?? error.response?.data}.`,
+            );
         })
-        .catch((error) => `Failed to fetch available firmware: ${error.message ?? error.response?.data}.`)
+        .catch(
+          (error) =>
+            `Failed to fetch available firmware: ${error.message ?? error.response?.data}.`,
+        );
     },
     async installScripts(): Promise<ConfigurationStatus> {
-      const scripts_folder = 'configs/ardupilot-manager/firmware/scripts/'
+      const scripts_folder = "configs/ardupilot-manager/firmware/scripts/";
       try {
         // Use allSettled to allow promises to fail in parallel
         await Promise.allSettled(
-          this.scripts.map(
-            async (script) => filebrowser.createFile(scripts_folder + script.split('/').last(), true),
+          this.scripts.map(async (script) =>
+            filebrowser.createFile(
+              scripts_folder + script.split("/").last(),
+              true,
+            ),
           ),
-        )
+        );
         await Promise.allSettled(
           this.scripts.map(async (script) => {
             await filebrowser.writeToFile(
-              scripts_folder + script.split('/').last(),
+              scripts_folder + script.split("/").last(),
               await this.fetchScript(script),
-            )
+            );
           }),
-        )
-        return undefined
+        );
+        return undefined;
       } catch (e) {
-        const error = `Failed to install scripts ${e}`
-        console.error(error)
-        return error
+        const error = `Failed to install scripts ${e}`;
+        console.error(error);
+        return error;
       }
     },
     async fetchScript(script: string): Promise<string> {
-      const response = await fetch(`${REPOSITORY_ROOT}/scripts/ardupilot/${script}`)
-      return response.text()
+      const response = await fetch(
+        `${REPOSITORY_ROOT}/scripts/ardupilot/${script}`,
+      );
+      return response.text();
     },
     validateParams(): boolean {
-      return this.$refs.param_loader?.validateParams()
+      return this.$refs.param_loader?.validateParams();
     },
   },
-})
+});
 </script>
 
 <style scoped>
@@ -717,7 +779,9 @@ export default Vue.extend({
   cursor: pointer;
   text-align: center;
   user-select: none;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .model-button:hover {

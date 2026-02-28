@@ -5,7 +5,9 @@
         size="35px"
         directory="/userdata/images/vehicle"
         :readonly-files="['/assets/vehicles/images/bluerov2.png', '/assets/vehicles/images/bb120.png']"
-        :default-image="require('@/assets/vehicles/images/unknown.svg')"
+        <!-- :default-image="require('@/assets/vehicles/images/unknown.svg')" -->
+        <!--! ===== Changed the default image ===== -->
+        :default-image="require('@/assets/vehicles/images/bluerov2.svg')"
         :image="vehicle_image"
         @image-selected="save_vehicle_image"
       />
@@ -134,7 +136,9 @@ export default Vue.extend({
     },
     update_title() {
       const sysid = this.system_id !== 1 ? `(${this.system_id}) ` : ''
-      document.title = `${sysid}${this.vehicle_name} - BlueOS`
+      // document.title = `${sysid}${this.vehicle_name} - BlueOS`
+      //! ===== Changed the name in the title =====
+      document.title = `${sysid}${this.vehicle_name} - CoratiaOS`
     },
     save() {
       this.save_name()

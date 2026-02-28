@@ -25,7 +25,9 @@ manager = EthernetManager()
 
 app = FastAPI(
     title="Cable Guy API",
-    description="Cable Guy is responsible for managing internet interfaces on BlueOS.",
+    # description="Cable Guy is responsible for managing internet interfaces on BlueOS.",
+    #! ===== Changed the name =====
+    description="Cable Guy is responsible for managing internet interfaces on CoratiaOS.",
     default_response_class=PrettyJSONResponse,
     debug=True,
 )

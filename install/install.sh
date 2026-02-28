@@ -16,7 +16,9 @@ RUNNING_IN_CI=0 # default to not running CI mode/docker-in-docker
 usage_help()
 {
     cat <<EOF
-BlueOS Installer
+# BlueOS Installer
+#! ===== Changed the name =====
+# CoratiaOS Installer
 Usage: install.sh [options]
 
 Options:
@@ -170,7 +172,9 @@ test $NO_CLEAN || (
 )
 
 # Start installing necessary files and system configuration
-echo "Going to install BlueOS version ${VERSION}."
+# echo "Going to install BlueOS version ${VERSION}."
+#! ===== Changed the name =====
+echo "Going to install CoratiaOS version ${VERSION}."
 
 echo "Downloading and installing udev rules."
 curl -fsSL $ROOT/install/udev/100.autopilot.rules -o /etc/udev/rules.d/100.autopilot.rules
@@ -201,9 +205,14 @@ command -v raspi-config && (
 )
 
 echo "Downloading bootstrap"
-BLUEOS_BOOTSTRAP="$DOCKER_USER/blueos-bootstrap:$VERSION" # Use current version
-BLUEOS_CORE="$DOCKER_USER/blueos-core:$VERSION" # We don't have a stable tag yet
-BLUEOS_FACTORY="bluerobotics/blueos-core:factory" # used for "factory reset"
+# BLUEOS_BOOTSTRAP="$DOCKER_USER/blueos-bootstrap:$VERSION" # Use current version
+# BLUEOS_CORE="$DOCKER_USER/blueos-core:$VERSION" # We don't have a stable tag yet
+# BLUEOS_FACTORY="bluerobotics/blueos-core:factory" # used for "factory reset"
+
+#! ===== Changed the path extension =====
+BLUEOS_BOOTSTRAP="$DOCKER_USER/coratiaos-bootstrap:$VERSION" # Use current version
+BLUEOS_CORE="$DOCKER_USER/coratiaos-core:$VERSION" # We don't have a stable tag yet
+BLUEOS_FACTORY="bluerobotics/coratiaos-core:factory" # used for "factory reset"
 
 docker pull $BLUEOS_BOOTSTRAP
 docker pull $BLUEOS_CORE
@@ -214,11 +223,12 @@ curl -fsSL $ROOT/install/kraken/set_default_extensions.sh | bash
 # Use current release version for factory fallback
 docker image tag $BLUEOS_CORE $BLUEOS_FACTORY
 
-# Create blueos-bootstrap container
+#! ===== Changed the name in this section =====
+# Create coratiaos-bootstrap container
 docker create \
     -t \
     --restart unless-stopped \
-    --name blueos-bootstrap \
+    --name coratiaos-bootstrap \
     --net=host \
     -v $HOME/.config/blueos/bootstrap:/root/.config/bootstrap \
     -v /var/run/docker.sock:/var/run/docker.sock \
@@ -240,6 +250,10 @@ systemctl enable blueos
 echo "Starting network configuration."
 curl -fsSL $ROOT/install/network/avahi.sh | bash
 
+#! ===== Install Extension for DVL ===== 
+echo "Automatically Install Extension"
+docker run -d --net=host -v /root/.config/blueos:/root/.config --name=BlueOS-Water-Linked-DVL --restart=unless-stopped williangalvani/blueos-dvl:latest
+
 # Following https://systemd.io/BUILDING_IMAGES/
 echo "Restarting machine-id."
 rm -rf /etc/machine-id /var/lib/dbus/machine-id
@@ -260,7 +274,8 @@ systemctl disable NetworkManager-wait-online.service || true
 
 echo "Installation finished successfully."
 echo "You can access after the reboot:"
-echo "- The computer webpage: http://blueos-avahi.local"
-echo "- The ssh client: $USER@blueos-avahi.local"
+#! ===== Commented out =====
+# echo "- The computer webpage: http://blueos-avahi.local"
+# echo "- The ssh client: $USER@blueos-avahi.local"
 echo "System will reboot in 10 seconds."
 sleep 10 && reboot

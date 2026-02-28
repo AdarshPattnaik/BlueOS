@@ -488,7 +488,9 @@ class NetworkManagerWifi(AbstractWifiManager):
         hashed_id = hashlib.md5(dev_id.encode()).hexdigest()[:6]
 
         return WifiCredentials(
-            ssid=self._settings_manager.settings.hotspot_ssid or f"BlueOS ({hashed_id})",
+            # ssid=self._settings_manager.settings.hotspot_ssid or f"BlueOS ({hashed_id})",
+            #! ===== Changed the name =====
+            ssid=self._settings_manager.settings.hotspot_ssid or f"CoratiaOS ({hashed_id})",
             password=self._settings_manager.settings.hotspot_password or "blueosap",
         )
 

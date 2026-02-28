@@ -1,4 +1,4 @@
-""" Request distance measurements from a Blue Robotics Ping1D device over UDP (PingProxy).
+""" Request distance measurements from a CroatiaOS Ping1D device over UDP (PingProxy).
     Send results to an autopilot via MAVLink over UDP, for use as a rangefinder.
     Don't request if we are already getting data from device (e.g. there is another client
     (pingviewer gui) making requests to the proxy).
