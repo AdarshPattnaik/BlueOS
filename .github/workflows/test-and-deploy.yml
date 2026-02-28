@@ -4,12 +4,12 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
 on:
-    workflow_dispatch:
-    pull_request:
-    push:
-    schedule:
+  workflow_dispatch:
+  pull_request:
+  push:
+  schedule:
     # Run every 6 days to keep our caches alive
-    - cron: '0 0 */6 * *'
+    - cron: "0 0 */6 * *"
 
 jobs:
   python-tests:
@@ -19,30 +19,29 @@ jobs:
       python-version: 3.11 # Our base image has Python 3.11
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up Python ${{ env.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ env.python-version }}
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.python-version }}
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get install --no-install-recommends --assume-yes shellcheck parallel
-        python -m pip install --upgrade pip
-        pip install poetry
+      - name: Install dependencies
+        run: |
+          sudo apt-get install --no-install-recommends --assume-yes shellcheck parallel
+          python -m pip install --upgrade pip
+          pip install poetry
 
-    - name: Run tests
-      run: |
-        .hooks/pre-push
+      - name: Run tests
+        run: |
+          .hooks/pre-push
 
-    - name: Upload coverage
-      uses: actions/upload-artifact@v4
-      with:
-        name: coverage
-        path: htmlcov
-
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: htmlcov
 
   frontend-tests:
     runs-on: ubuntu-latest
@@ -72,7 +71,7 @@ jobs:
       fail-fast: false
       matrix:
         docker: [bootstrap, core]
-        project: [blueos]
+        project: [coratiaos]
         platforms: ["linux/arm/v7,linux/arm64/v8,linux/amd64"]
     steps:
       - name: Free Disk Space (Ubuntu)
@@ -96,7 +95,7 @@ jobs:
         run: |
           # Deploy image with the name of the branch, if the build is a git tag, replace tag with the tag name.
           # If git tag matches semver, append latest tag to the push.
-          DOCKER_IMAGE=${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}
+          DOCKER_IMAGE=${DOCKER_USERNAME:-coratia}/${{ matrix.project }}-${{ matrix.docker }}
           VERSION=${GITHUB_REF##*/}
 
           if [[ $GITHUB_REF == refs/tags/* ]]; then
@@ -142,7 +141,7 @@ jobs:
         run: |
           # Pull latest version of image to help with build speed
           for platform in $(echo ${{ matrix.platforms }} | tr ',' '\n'); do
-            docker pull --platform ${platform} ${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}:master || true
+            docker pull --platform ${platform} ${DOCKER_USERNAME:-coratia}/${{ matrix.project }}-${{ matrix.docker }}:master || true
           done
           docker buildx build \
             --output "type=image,push=false" \
@@ -154,7 +153,7 @@ jobs:
         run: |
           # Check if the image size is lower than our limit
           docker image list
-          IMAGE_ID=$(docker images -q ${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }} | head -n 1)
+          IMAGE_ID=$(docker images -q ${DOCKER_USERNAME:-coratia}/${{ matrix.project }} | head -n 1)
           LIMIT_SIZE_MB=700
           IMAGE_SIZE_MB=$(( $(docker inspect $IMAGE_ID --format {{.Size}})/(2**20) ))
           echo "Core size is: $IMAGE_SIZE_MB MB"
@@ -184,7 +183,7 @@ jobs:
       - name: Create image artifact
         if: success() && matrix.docker == 'core'
         run: |
-          DOCKER_IMAGE=${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}
+          DOCKER_IMAGE=${DOCKER_USERNAME:-coratia}/${{ matrix.project }}-${{ matrix.docker }}
           GIT_HASH_SHORT=$(git rev-parse --short "$GITHUB_SHA")
           docker buildx build \
             ${{ steps.prepare.outputs.buildx_args }} \
@@ -197,12 +196,12 @@ jobs:
         if: success() && matrix.docker == 'core'
         with:
           name: BlueOS-core-docker-image-arm64-v8
-          path: '*arm64-v8.tar'
+          path: "*arm64-v8.tar"
 
       - name: Create image artifact
         if: success() && matrix.docker == 'core'
         run: |
-          DOCKER_IMAGE=${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}
+          DOCKER_IMAGE=${DOCKER_USERNAME:-coratia}/${{ matrix.project }}-${{ matrix.docker }}
           GIT_HASH_SHORT=$(git rev-parse --short "$GITHUB_SHA")
           docker buildx build \
             ${{ steps.prepare.outputs.buildx_args }} \
@@ -215,12 +214,12 @@ jobs:
         if: success() && matrix.docker == 'core'
         with:
           name: BlueOS-core-docker-image-arm-v7
-          path: '*arm-v7.tar'
+          path: "*arm-v7.tar"
 
       - name: Create image artifact
         if: success() && matrix.docker == 'core'
         run: |
-          DOCKER_IMAGE=${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}
+          DOCKER_IMAGE=${DOCKER_USERNAME:-coratia}/${{ matrix.project }}-${{ matrix.docker }}
           GIT_HASH_SHORT=$(git rev-parse --short "$GITHUB_SHA")
           docker buildx build \
             ${{ steps.prepare.outputs.buildx_args }} \
@@ -233,14 +232,14 @@ jobs:
         if: success() && matrix.docker == 'core'
         with:
           name: BlueOS-core-docker-image-amd64
-          path: '*amd64.tar'
+          path: "*amd64.tar"
 
       - name: Upload docker image for release
         uses: svenstaro/upload-release-action@v2
         if: startsWith(github.ref, 'refs/tags/') && success() && matrix.docker == 'core'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: '*.tar'
+          file: "*.tar"
           tag: ${{ github.ref }}
           overwrite: true
           prerelease: true
@@ -248,7 +247,7 @@ jobs:
 
   deploy-raspberry-image:
     needs: deploy-docker-images
-    if: github.event_name != 'pull_request' && github.repository_owner == 'bluerobotics'
+    if: github.event_name != 'pull_request' && github.repository_owner == 'coratia'
     timeout-minutes: 180 # Detect if it gets into an infinite loop or some unexpected state
     strategy:
       fail-fast: false
@@ -272,7 +271,7 @@ jobs:
     # - pi4-builders: A Raspberry Pi OS Bullseye (32-bit).
     # - pi5-builder: A Raspberry Pi OS Bookworm lite 64-bit.
     # For pi5-ci, install docker (curl -sSL https://get.docker.com/ | sh) and follow the instructions for setting up a new runner in
-    # https://github.com/bluerobotics/BlueOS/settings/actions/runners/new
+    # https://github.com/coratia/BlueOS/settings/actions/runners/new
 
     steps:
       - name: Install git
