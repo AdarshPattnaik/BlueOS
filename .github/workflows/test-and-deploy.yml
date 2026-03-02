@@ -298,7 +298,13 @@ jobs:
             --workdir=/files \
             --platform ${{ matrix.platform }} \
             nature40/pimod:latest \
-            bash -c "echo '#!/bin/sh\nexit 0' > /usr/sbin/update-binfmts && chmod +x /usr/sbin/update-binfmts && pimod.sh deploy/pimod/blueos.Pifile"
+            bash -c '
+              mkdir -p /fakebin &&
+              printf "#!/bin/sh\nexit 0\n" > /fakebin/update-binfts &&
+              chmod +x /fakebin/update-binfmts &&
+              export PATH=/fakebin:$PATH &&
+              pimod.sh deploy/pimod/blueos.Pifile
+            '
 
       - name: Add /boot additions
         run: |
