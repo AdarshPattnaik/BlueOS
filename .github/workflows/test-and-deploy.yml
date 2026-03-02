@@ -291,7 +291,6 @@ jobs:
 
           docker run --rm --privileged \
             -v $PWD:/files \
-            -e PATH=/pimod:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
             -e GITHUB_REPOSITORY=$GITHUB_REPOSITORY \
             -e VERSION=$GITHUB_REF_NAME \
             -e BASE_IMAGE=${{ matrix.image }} \
@@ -300,7 +299,7 @@ jobs:
             nature40/pimod:latest \
             bash -c '
               mkdir -p /fakebin &&
-              printf "#!/bin/sh\nexit 0\n" > /fakebin/update-binfts &&
+              printf "#!/bin/sh\nexit 0\n" > /fakebin/update-binfmts &&
               chmod +x /fakebin/update-binfmts &&
               export PATH=/fakebin:$PATH &&
               pimod.sh deploy/pimod/blueos.Pifile
