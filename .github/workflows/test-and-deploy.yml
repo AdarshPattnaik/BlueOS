@@ -283,39 +283,53 @@ jobs:
           submodules: recursive
 
       # We use our own pimod as upstream doesn't provide armv7 images
+      # - name: Pimod Build
+      #   run: |
+      #     set +e
+
+      #     wget https://raw.githubusercontent.com/Nature40/pimod/master/pimod.sh
+      #     chmod +x pimod.sh
+
+      #     docker run --rm --privileged \
+      #       -v $PWD:/files \
+      #       -e GITHUB_REPOSITORY=$GITHUB_REPOSITORY \
+      #       -e VERSION=$GITHUB_REF_NAME \
+      #       -e BASE_IMAGE=${{ matrix.image }} \
+      #       --workdir=/files \
+      #       --platform ${{ matrix.platform }} \
+      #       nature40/pimod:latest \
+      #       bash -c '
+      #         mkdir -p /fakebin &&
+      #         printf "#!/bin/sh\nexit 0\n" > /fakebin/update-binfmts &&
+      #         chmod +x /fakebin/update-binfmts &&
+      #         export PATH=/fakebin:$PATH &&
+      #         pimod.sh deploy/pimod/blueos.Pifile
+      #       '
+
+      #     EXIT_CODE=$?
+      #     echo "Pimod exited with code $EXIT_CODE"
+
+      #     # Fail only if image not created
+      #     if [ ! -f deploy/pimod/blueos.img ]; then
+      #       echo "Image not created!"
+      #       exit 1
+      #     fi
+
+      #     exit 0
+
       - name: Pimod Build
         run: |
-          set +e
-
-          wget https://raw.githubusercontent.com/Nature40/pimod/master/pimod.sh
-          chmod +x pimod.sh
-
+          PIMOD_VERSION=v0.7.0
+          VERSION=${VERSION:-ad_dev}
+          wget https://raw.githubusercontent.com/Nature40/pimod/${PIMOD_VERSION}/pimod.sh && chmod +x pimod.sh
           docker run --rm --privileged \
             -v $PWD:/files \
+            -e PATH=/pimod:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
             -e GITHUB_REPOSITORY=$GITHUB_REPOSITORY \
             -e VERSION=$GITHUB_REF_NAME \
             -e BASE_IMAGE=${{ matrix.image }} \
             --workdir=/files \
-            --platform ${{ matrix.platform }} \
-            nature40/pimod:latest \
-            bash -c '
-              mkdir -p /fakebin &&
-              printf "#!/bin/sh\nexit 0\n" > /fakebin/update-binfmts &&
-              chmod +x /fakebin/update-binfmts &&
-              export PATH=/fakebin:$PATH &&
-              pimod.sh deploy/pimod/blueos.Pifile
-            '
-
-          EXIT_CODE=$?
-          echo "Pimod exited with code $EXIT_CODE"
-
-          # Fail only if image not created
-          if [ ! -f deploy/pimod/blueos.img ]; then
-            echo "Image not created!"
-            exit 1
-          fi
-
-          exit 0
+            --platform ${{ matrix.platform }} nature40/pimod:${PIMOD_VERSION} pimod.sh deploy/pimod/blueos.Pifile
 
       - name: Add /boot additions
         run: |
