@@ -2,23 +2,25 @@ FROM https://downloads.raspberrypi.org/${BASE_IMAGE}
 
 PUMP 3000M
 
-# expand_fs
-INSTALL deploy/expand_fs.sh /usr/bin/expand_fs.sh
-RUN chmod +x /usr/bin/expand_fs.sh
-
+# Enable SSH on first boot
 RUN touch /boot/ssh
 
 # rfkill can't run in chroot, run here instead
 RUN sed -i "\%^exit 0%irfkill unblock all" /etc/rc.local
 
+# Copy the bootstrap startup config with the correct version pinned
 RUN bash -c '
   mkdir -p /root/.config/blueos/bootstrap/
-  curl -o /root/.config/blueos/bootstrap/startup.json https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$VERSION/bootstrap/startup.json.default
-  sed -i 's/factory/$VERSION/g' /root/.config/blueos/bootstrap/startup.json
+  curl -fsSL -o /root/.config/blueos/bootstrap/startup.json \
+    https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$VERSION/bootstrap/startup.json.default
+  sed -i "s/factory/$VERSION/g" /root/.config/blueos/bootstrap/startup.json
 '
 
-RUN bash -c '
-  curl -O https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$VERSION/install/install.sh
-  chmod +x install.sh
-  USER=pi ./install.sh --ci-run
-'
+# Copy install.sh onto the image — it will run on first boot
+RUN curl -fsSL -o /usr/local/bin/coratiaos-install.sh \
+  https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$VERSION/install/install.sh
+RUN chmod +x /usr/local/bin/coratiaos-install.sh
+
+# Install and enable the first-boot service
+INSTALL deploy/pimod/coratiaos-firstboot.service /etc/systemd/system/coratiaos-firstboot.service
+RUN systemctl enable coratiaos-firstboot.service

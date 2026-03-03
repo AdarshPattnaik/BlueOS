@@ -1,0 +1,22 @@
+[Unit]
+Description=CoratiaOS First Boot Installer
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/usr/local/bin/coratiaos-install.sh
+
+[Service]
+Type=oneshot
+# Show output in journal
+StandardOutput=journal+console
+StandardError=journal+console
+# Run the installer
+ExecStart=/usr/local/bin/coratiaos-install.sh
+# Self-destruct after success so it never runs again
+ExecStartPost=/bin/systemctl disable coratiaos-firstboot.service
+ExecStartPost=/bin/rm -f /usr/local/bin/coratiaos-install.sh
+RemainAfterExit=yes
+# No timeout — install.sh pulls Docker images which can take a while
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
