@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Set desired version to be installed
-VERSION="${VERSION:-master}"
-GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-bluerobotics/BlueOS}
+VERSION="${VERSION:-ad_dev}"
+GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-adarshpattnaik/BlueOS}
 DOCKER_USER=${DOCKER_USER:-$(echo $GITHUB_REPOSITORY | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]')}
 REMOTE="${REMOTE:-https://raw.githubusercontent.com/${GITHUB_REPOSITORY}}"
 ROOT="$REMOTE/$VERSION"
@@ -106,7 +106,7 @@ echo "Checking for available space."
 AVAILABLE_SPACE_MB=$(($(stat -f / --format="%a*%S/1024**2")))
 NECESSARY_SPACE_MB=1024
 (( AVAILABLE_SPACE_MB < NECESSARY_SPACE_MB )) && (
-    echo "Not enough free space to install blueos, at least ${NECESSARY_SPACE_MB}MB required"
+    echo "Not enough free space to install coratiaos, at least ${NECESSARY_SPACE_MB}MB required"
     exit 1
 )
 
@@ -147,6 +147,7 @@ then
     echo 'dockremap:165536:65536' >> /etc/subgid
 
     dind dockerd $DOCKER_EXTRA_OPTS &
+    DOCKERD_PID=$!
       while(! docker info > /dev/null 2>&1); do
         echo "==> Waiting for the Docker daemon to come online..."
         sleep 1
@@ -201,7 +202,7 @@ command -v raspi-config && (
 )
 
 echo "Downloading bootstrap"
-BLUEOS_BOOTSTRAP="$DOCKER_USER/adarshpattnaik-bootstrap:$VERSION" # Use current version
+BLUEOS_BOOTSTRAP="$DOCKER_USER/coratiaos-bootstrap:$VERSION" # Use current version
 BLUEOS_CORE="$DOCKER_USER/coratiaos-core:$VERSION" # We don't have a stable tag yet
 BLUEOS_FACTORY="adarshpattnaik/coratiaos-core:factory" # used for "factory reset"
 
@@ -262,5 +263,15 @@ echo "Installation finished successfully."
 echo "You can access after the reboot:"
 echo "- The computer webpage: http://blueos-avahi.local"
 echo "- The ssh client: $USER@blueos-avahi.local"
-echo "System will reboot in 10 seconds."
-sleep 10 && reboot
+
+# In CI mode, kill the background dockerd we started so pimod can cleanly unmount
+if [ $RUNNING_IN_CI -eq 1 ] && [ -n "${DOCKERD_PID:-}" ]; then
+    echo "Stopping background dockerd (PID $DOCKERD_PID) for clean chroot teardown..."
+    kill $DOCKERD_PID 2>/dev/null || true
+    wait $DOCKERD_PID 2>/dev/null || true
+fi
+
+if [ $RUNNING_IN_CI -ne 1 ]; then
+    echo "System will reboot in 10 seconds."
+    sleep 10 && reboot
+fi

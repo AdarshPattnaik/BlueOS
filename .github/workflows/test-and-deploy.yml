@@ -329,7 +329,7 @@ jobs:
             -e VERSION=$GITHUB_REF_NAME \
             -e BASE_IMAGE=${{ matrix.image }} \
             --workdir=/files \
-            --platform ${{ matrix.platform }} nature40/pimod:${PIMOD_VERSION} pimod.sh deploy/pimod/blueos.Pifile
+            --platform ${{ matrix.platform }} nature40/pimod:${PIMOD_VERSION} pimod.sh /files/deploy/pimod/blueos.Pifile
 
       - name: Add /boot additions
         run: |
