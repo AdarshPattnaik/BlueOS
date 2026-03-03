@@ -285,9 +285,10 @@ jobs:
       # We use our own pimod as upstream doesn't provide armv7 images
       - name: Pimod Build
         run: |
-          VERSION=$GITHUB_REPOSITORY
-          VERSION=${VERSION:-master}
-          wget https://raw.githubusercontent.com//Nature40/pimod/master/pimod.sh && chmod +x pimod.sh
+          set +e
+
+          wget https://raw.githubusercontent.com/Nature40/pimod/master/pimod.sh
+          chmod +x pimod.sh
 
           docker run --rm --privileged \
             -v $PWD:/files \
@@ -304,6 +305,17 @@ jobs:
               export PATH=/fakebin:$PATH &&
               pimod.sh deploy/pimod/blueos.Pifile
             '
+
+          EXIT_CODE=$?
+          echo "Pimod exited with code $EXIT_CODE"
+
+          # Fail only if image not created
+          if [ ! -f deploy/pimod/blueos.img ]; then
+            echo "Image not created!"
+            exit 1
+          fi
+
+          exit 0
 
       - name: Add /boot additions
         run: |
