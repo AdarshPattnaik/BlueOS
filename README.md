@@ -106,3 +106,5 @@ When restarting the development environment you may need to remove the volumes t
 ```bash
 docker compose -f core/compose/compose.yml down
 ```
+
+Testing CI baseline before CoratiaOS transition.
