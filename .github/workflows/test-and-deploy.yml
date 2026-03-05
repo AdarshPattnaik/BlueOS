@@ -19,6 +19,9 @@ jobs:
       python-version: 3.11 # Our base image has Python 3.11
 
     steps:
+      - name: Fix permissions
+        run: sudo chown -R pi:pi /home/pi/actions-runner/_work || true
+
       - name: Checkout
         uses: actions/checkout@v4
 
