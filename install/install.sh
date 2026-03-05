@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Set desired version to be installed
-VERSION="${VERSION:-mern}"
-GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-adarshpattnaik/BlueOS}
-DOCKER_USER=${DOCKER_USERNAME:-$(echo $GITHUB_REPOSITORY | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]')}
+VERSION="${VERSION:-master}"
+GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-bluerobotics/BlueOS}
+DOCKER_USER='adarshnemesis'
 REMOTE="${REMOTE:-https://raw.githubusercontent.com/${GITHUB_REPOSITORY}}"
 ROOT="$REMOTE/$VERSION"
 
