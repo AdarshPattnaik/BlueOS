@@ -287,11 +287,13 @@ jobs:
       # We use our own pimod as upstream doesn't provide armv7 images
       - name: Pimod Build
         run: |
+          rm -f ~/.docker/config.json || true
           PIMOD_VERSION=v0.7.0
           VERSION=$GITHUB_REPOSITORY
           VERSION=${VERSION:-master}
           wget https://raw.githubusercontent.com/Nature40/pimod/${PIMOD_VERSION}/pimod.sh && chmod +x pimod.sh
           docker run --rm --privileged \
+            --network host \
             -v $PWD:/files \
             -e PATH=/pimod:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
             -e GITHUB_REPOSITORY=$GITHUB_REPOSITORY \
