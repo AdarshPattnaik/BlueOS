@@ -247,7 +247,6 @@ jobs:
 
   deploy-raspberry-image:
     needs: deploy-docker-images
-    # ! ADARSH: IMPORTANT: Prevents stopping the workflow if the repository is not owned by bluerobotics
     # if: github.event_name != 'pull_request' && github.repository_owner == 'bluerobotics'
     if: github.event_name != 'pull_request'
     timeout-minutes: 180 # Detect if it gets into an infinite loop or some unexpected state
@@ -318,19 +317,17 @@ jobs:
       - name: Sanitize platform name
         run: echo "SANITIZED_PLATFORM=$(echo ${{ matrix.platform }} | tr '/' '-')" >> $GITHUB_ENV
 
-      # ! ADARSH: IMPORTANT: Change the Zip name
       - name: Zip image
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           sudo apt install zip
-          zip CoratiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip deploy/pimod/blueos.img
+          zip BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip deploy/pimod/blueos.img
 
-      # ! ADARSH: IMPORTANT: Change the artifact name for non-tag release build
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         timeout-minutes: 120
         with:
-          name: CoratiaOS-raspberry-${{ env.GITHUB_REF_NAME }}${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}
+          name: BlueOS-raspberry-${{ env.GITHUB_REF_NAME }}${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}
           path: deploy/pimod/blueos.img
           if-no-files-found: error
           retention-days: 7
@@ -343,14 +340,13 @@ jobs:
             echo "ASSET_NAME_SUFFIX=-pi4" >> $GITHUB_ENV
           fi
 
-      # ! ADARSH: IMPORTANT: Change the image name for git release
       - name: Upload raspberry image for release
         uses: svenstaro/upload-release-action@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: CoratiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip
-          asset_name: CoratiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}${{ env.ASSET_NAME_SUFFIX }}.zip
+          file: BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip
+          asset_name: BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}${{ env.ASSET_NAME_SUFFIX }}.zip
           tag: ${{ github.ref }}
           overwrite: true
           prerelease: true
