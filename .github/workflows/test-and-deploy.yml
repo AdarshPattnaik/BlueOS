@@ -292,6 +292,7 @@ jobs:
           VERSION=${VERSION:-mern}
           wget https://raw.githubusercontent.com/Nature40/pimod/${PIMOD_VERSION}/pimod.sh && chmod +x pimod.sh
           docker run --rm --privileged \
+            --dns 8.8.8.8 --dns 1.1.1.1 \
             -v $PWD:/files \
             -e PATH=/pimod:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
             -e GITHUB_REPOSITORY=$GITHUB_REPOSITORY \
