@@ -1,4 +1,4 @@
-FROM https://downloads.raspberrypi.org/${BASE_IMAGE}
+FROM https://downloads.raspberrypi.com/${BASE_IMAGE}
 
 PUMP 3000M
 
