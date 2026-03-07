@@ -95,7 +95,7 @@ jobs:
         run: |
           # Deploy image with the name of the branch, if the build is a git tag, replace tag with the tag name.
           # If git tag matches semver, append latest tag to the push.
-          DOCKER_IMAGE=${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}
+          DOCKER_IMAGE=${DOCKER_USERNAME:-adarshnemesis}/${{ matrix.project }}-${{ matrix.docker }}
           VERSION=${GITHUB_REF##*/}
 
           if [[ $GITHUB_REF == refs/tags/* ]]; then
@@ -141,7 +141,7 @@ jobs:
         run: |
           # Pull latest version of image to help with build speed
           for platform in $(echo ${{ matrix.platforms }} | tr ',' '\n'); do
-            docker pull --platform ${platform} ${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}:master || true
+            docker pull --platform ${platform} ${DOCKER_USERNAME:-adarshnemesis}/${{ matrix.project }}-${{ matrix.docker }}:master || true
           done
           docker buildx build \
             --output "type=image,push=false" \
@@ -153,7 +153,7 @@ jobs:
         run: |
           # Check if the image size is lower than our limit
           docker image list
-          IMAGE_ID=$(docker images -q ${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }} | head -n 1)
+          IMAGE_ID=$(docker images -q ${DOCKER_USERNAME:-adarshnemesis}/${{ matrix.project }} | head -n 1)
           LIMIT_SIZE_MB=700
           IMAGE_SIZE_MB=$(( $(docker inspect $IMAGE_ID --format {{.Size}})/(2**20) ))
           echo "Core size is: $IMAGE_SIZE_MB MB"
@@ -183,7 +183,7 @@ jobs:
       - name: Create image artifact
         if: success() && matrix.docker == 'core'
         run: |
-          DOCKER_IMAGE=${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}
+          DOCKER_IMAGE=${DOCKER_USERNAME:-adarshnemesis}/${{ matrix.project }}-${{ matrix.docker }}
           GIT_HASH_SHORT=$(git rev-parse --short "$GITHUB_SHA")
           docker buildx build \
             ${{ steps.prepare.outputs.buildx_args }} \
@@ -201,7 +201,7 @@ jobs:
       - name: Create image artifact
         if: success() && matrix.docker == 'core'
         run: |
-          DOCKER_IMAGE=${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}
+          DOCKER_IMAGE=${DOCKER_USERNAME:-adarshnemesis}/${{ matrix.project }}-${{ matrix.docker }}
           GIT_HASH_SHORT=$(git rev-parse --short "$GITHUB_SHA")
           docker buildx build \
             ${{ steps.prepare.outputs.buildx_args }} \
@@ -219,7 +219,7 @@ jobs:
       - name: Create image artifact
         if: success() && matrix.docker == 'core'
         run: |
-          DOCKER_IMAGE=${DOCKER_USERNAME:-bluerobotics}/${{ matrix.project }}-${{ matrix.docker }}
+          DOCKER_IMAGE=${DOCKER_USERNAME:-adarshnemesis}/${{ matrix.project }}-${{ matrix.docker }}
           GIT_HASH_SHORT=$(git rev-parse --short "$GITHUB_SHA")
           docker buildx build \
             ${{ steps.prepare.outputs.buildx_args }} \
@@ -288,7 +288,7 @@ jobs:
         run: |
           PIMOD_VERSION=v0.7.0
           VERSION=$GITHUB_REPOSITORY
-          VERSION=${VERSION:-master}
+          VERSION=${VERSION:-mern}
           wget https://raw.githubusercontent.com/Nature40/pimod/${PIMOD_VERSION}/pimod.sh && chmod +x pimod.sh
           docker run --rm --privileged \
             -v $PWD:/files \
@@ -321,13 +321,13 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           sudo apt install zip
-          zip BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip deploy/pimod/blueos.img
+          zip CoratiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip deploy/pimod/blueos.img
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         timeout-minutes: 120
         with:
-          name: BlueOS-raspberry-${{ env.GITHUB_REF_NAME }}${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}
+          name: CoratiaOS-raspberry-${{ env.GITHUB_REF_NAME }}${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}
           path: deploy/pimod/blueos.img
           if-no-files-found: error
           retention-days: 7
@@ -345,8 +345,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip
-          asset_name: BlueOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}${{ env.ASSET_NAME_SUFFIX }}.zip
+          file: CoratiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}.zip
+          asset_name: CoratiaOS-raspberry-${{ env.SANITIZED_PLATFORM }}-${{ matrix.os }}${{ env.ASSET_NAME_SUFFIX }}.zip
           tag: ${{ github.ref }}
           overwrite: true
           prerelease: true
