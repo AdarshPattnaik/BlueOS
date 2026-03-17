@@ -20,9 +20,12 @@
         />
       </v-list>
     </v-card>
+
+    <!-- ===== Top bar starts here ===== -->
+
     <v-card
       flat
-    >
+    > 
       <v-app-bar
         app
         rounded="0"
@@ -80,7 +83,9 @@
         <notification-tray-button />
       </v-app-bar>
     </v-card>
+    <!-- ===== Top bar ends here ===== -->
 
+    <!-- ===== Sidebar starts here ===== -->
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -364,11 +369,15 @@
         </span>
       </v-container>
     </v-navigation-drawer>
+    <!-- ===== Sidebar ends here ===== -->
 
+    <!-- ===== Main content starts here ===== -->
     <v-main>
       <router-view />
       <div id="tour-center-hook" />
     </v-main>
+    <!-- ===== Main content ends here ===== -->
+
     <ethernet-updater />
     <mavlink-updater />
     <new-version-notificator />
