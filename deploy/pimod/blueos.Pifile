@@ -1,4 +1,4 @@
-FROM https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2023-05-03/2023-05-03-raspios-bullseye-armhf-lite.img.xz
+FROM https://downloads.raspberrypi.org/${BASE_IMAGE}
 
 PUMP 3000M
 
