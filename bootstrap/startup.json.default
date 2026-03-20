@@ -1,7 +1,7 @@
 {
     "core": {
         "tag": "factory",
-        "image": "adarshpattnaik/blueos-core",
+        "image": "adarshnemesis/blueos-core",
         "enabled": true,
         "webui": false,
         "network": "host",
