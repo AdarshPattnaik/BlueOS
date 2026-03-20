@@ -134,7 +134,7 @@ jobs:
         run: |
           # Pull latest version of image to help with build speed
           for platform in $(echo ${{ matrix.platforms }} | tr ',' '\n'); do
-            docker pull --platform ${platform} ${DOCKER_USERNAME:-adarshnemesis}/${{ matrix.project }}-${{ matrix.docker }}:master || true
+            docker pull --platform ${platform} ${DOCKER_USERNAME:-adarshnemesis}/${{ matrix.project }}-${{ matrix.docker }}:mern || true
           done
           docker buildx build \
             --output "type=image,push=false" \
