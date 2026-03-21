@@ -3,7 +3,7 @@
 # Set desired version to be installed
 VERSION="${VERSION:-mern}"
 GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-AdarshPattnaik/BlueOS}
-DOCKER_USER=${DOCKER_USER:-$(echo $GITHUB_REPOSITORY | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]')}
+DOCKER_USER=${DOCKER_USER:-adarshnemesis}
 REMOTE="${REMOTE:-https://raw.githubusercontent.com/${GITHUB_REPOSITORY}}"
 ROOT="$REMOTE/$VERSION"
 
