@@ -23,7 +23,7 @@ set -e
 
 EOF
 
-FROM AdarshPattnaik/blueos-docker-base:0.2.1 AS base
+FROM adarshnemesis/blueos-docker-base:0.2.1 AS base
 
 # Download binaries
 FROM base AS download-binaries
