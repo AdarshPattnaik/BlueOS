@@ -944,8 +944,8 @@ div.pirate-marker.v-icon {
     It's not possible for us to get the color as variables and set a transparency on it,
     so we use the colors directly
   */
-  background-color: #2699D055 !important;
-  background-image: linear-gradient(160deg, #2699D088 0%, #135DA388 100%) !important;
+  background-color: #FF9A0055 !important;
+  background-image: linear-gradient(160deg, #FF9A0088 0%, #D4A80088 100%) !important;
   backdrop-filter: blur(4.5px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
 }
@@ -955,8 +955,8 @@ div.pirate-marker.v-icon {
     It's not possible for us to get the color as variables and set a transparency on it,
     so we use the colors directly
   */
-  background-color: #135DA355 !important;
-  background-image: linear-gradient(160deg, #135DA388 0%, #012F4688 100%) !important;
+  background-color: #D4A80055 !important;
+  background-image: linear-gradient(160deg, #D4A80088 0%, #8B700088 100%) !important;
   backdrop-filter: blur(4.5px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
 }
