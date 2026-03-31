@@ -95,7 +95,7 @@
         @click="goHome"
       >
         <v-img
-          alt="Blue Robotics Logo"
+          alt="Coratia Technologies Logo"
           class="shrink mr-2"
           contain
           :src="blueos_logo"
@@ -360,7 +360,7 @@
             href="https://bluerobotics.com"
             style="text-decoration:none;"
           >
-            Blue Robotics
+            Coratia Technologies
           </a>
         </span>
       </v-container>

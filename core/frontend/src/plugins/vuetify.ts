@@ -28,7 +28,7 @@ const baseTheme = {
   negative: BR_COLORS.AXOLOTL_PINK,
   attention: BR_COLORS.TETHER_YELLOW,
 
-  // Colors from Blue Robotics color palette
+  // Colors from Coratia Technologies color palette
   br_blue: BR_COLORS.BR_BLUE,
   mariner_blue: BR_COLORS.MARINER_BLUE,
   blue_whale: BR_COLORS.BLUE_WHALE,

@@ -338,12 +338,12 @@ export default Vue.extend({
       configuration_failed: false,
       error_message: 'The operation failed!',
       apply_status: ApplyStatus.Waiting,
-      mdns_name: 'blueos',
+      mdns_name: 'coratiaos',
       show_skip: false,
       should_open: false,
       step_number: 0,
       sub_model: get_model('sub', 'bluerov'),
-      vehicle_name: 'blueos',
+      vehicle_name: 'coratiaos',
       vehicle_type: '' as Vehicle | string,
       vehicle_image: null as string | null,
       // Allow us to check if the user is stuck in retry
@@ -547,7 +547,7 @@ export default Vue.extend({
     },
     setupROV() {
       this.vehicle_type = Vehicle.Sub
-      this.vehicle_name = 'BlueROV'
+      this.vehicle_name = 'JalaSimha'
       this.vehicle_image = '/assets/vehicles/images/bluerov2.png'
       this.step_number += 1
 

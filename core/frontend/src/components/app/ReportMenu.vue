@@ -65,7 +65,7 @@
               >
                 $si-discourse
               </v-icon>
-              On Blue Robotics forum
+              On Coratia Technologies forum
             </v-btn>
           </v-card-actions>
         </v-container>
