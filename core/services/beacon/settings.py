@@ -146,7 +146,9 @@ class SettingsV2(SettingsV1):
         if data["VERSION"] < SettingsV2.VERSION:
             super().migrate(data)
 
-        data["default"]["domain_names"] = [domain for domain in data["default"]["domain_names"] if domain != "coratiaos"]
+        data["default"]["domain_names"] = [
+            domain for domain in data["default"]["domain_names"] if domain != "coratiaos"
+        ]
         try:
             for interface in data["interfaces"]:
                 if interface["name"] == "wlan0":
