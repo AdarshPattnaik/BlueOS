@@ -1,7 +1,7 @@
 {
     "VERSION": 1,
     "default": {
-      "domain_names": ["blueos"],
+      "domain_names": ["coratiaos"],
       "advertise": ["_http"],
       "ip": "ips[0]"
     },
@@ -9,19 +9,19 @@
     "interfaces": [
       {
         "name": "eth0",
-        "domain_names": ["blueos", "blueos-ethernet", "companion"],
+        "domain_names": ["coratiaos", "coratiaos-ethernet", "companion"],
         "advertise": ["_mavlink", "_http"],
         "ip": "ips[*]"
       },
       {
         "name": "wlan0",
-        "domain_names": ["blueos-wifi"],
+        "domain_names": ["coratiaos-wifi"],
         "advertise": ["_http"],
         "ip": "ips[0]"
       },
       {
         "name": "uap0",
-        "domain_names": ["blueos-hotspot"],
+        "domain_names": ["coratiaos-hotspot"],
         "advertise": ["_http"],
         "ip": "ips[0]"
       }

@@ -759,7 +759,7 @@ export default Vue.extend({
     },
     checkAddress(): void {
       if (window.location.host.includes('companion.local')) {
-        window.location.replace('http://blueos.local')
+        window.location.replace('http://coratiaos.local')
       }
     },
     createExtensionAddress(service: Service): string {

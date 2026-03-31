@@ -146,12 +146,12 @@ class SettingsV2(SettingsV1):
         if data["VERSION"] < SettingsV2.VERSION:
             super().migrate(data)
 
-        data["default"]["domain_names"] = [domain for domain in data["default"]["domain_names"] if domain != "blueos"]
+        data["default"]["domain_names"] = [domain for domain in data["default"]["domain_names"] if domain != "coratiaos"]
         try:
             for interface in data["interfaces"]:
                 if interface["name"] == "wlan0":
                     interface["domain_names"] = [
-                        name for name in interface["domain_names"] if name not in ["blueos", "companion"]
+                        name for name in interface["domain_names"] if name not in ["coratiaos", "companion"]
                     ]
         except Exception as e:
             logger.error(f"unable to update SettingsV1 to SettingsV2: {e}")
@@ -176,7 +176,7 @@ class SettingsV3(SettingsV2):
         try:
             if not any(interface["name"] == "uap0" for interface in data["interfaces"]):
                 data["interfaces"].append(
-                    Interface(name="uap0", domain_names=["blueos-hotspot"], advertise=["_http"], ip="ips[0]")._data
+                    Interface(name="uap0", domain_names=["coratiaos-hotspot"], advertise=["_http"], ip="ips[0]")._data
                 )
         except Exception as e:
             logger.error(f"unable to update SettingsV2 to SettingsV3: {e}")
