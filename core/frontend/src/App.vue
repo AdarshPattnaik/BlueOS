@@ -317,7 +317,7 @@
         <span
           class="build_info"
         >
-          BlueOS Version:
+          CoratiaOS Version:
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -564,7 +564,7 @@ export default Vue.extend({
           icon: 'mdi-puzzle',
           route: '/tools/extensions-manager',
           advanced: false,
-          text: 'Manage BlueOS extensions',
+          text: 'Manage CoratiaOS extensions',
           beta: true,
         },
         ...foundExtensions,
@@ -577,9 +577,9 @@ export default Vue.extend({
         {
           target: '#tour-center-hook',
           header: {
-            title: 'Welcome to BlueOS!',
+            title: 'Welcome to CoratiaOS!',
           },
-          content: `We are happy to have you navigating with us! BlueOS provides the
+          content: `We are happy to have you navigating with us! CoratiaOS provides the
           necessary tools to configure your vehicle, check the system status and more.
           Follow this quick tour to get familiar with your brand new onboard system.`,
           params: {
@@ -588,7 +588,7 @@ export default Vue.extend({
         },
         {
           target: '#tour-center-hook',
-          content: 'Connect BlueOS to the internet to enable online functionalities.',
+          content: 'Connect CoratiaOS to the internet to enable online functionalities.',
           filter_wifi_connected: true,
           params: {
             enableScrolling: false,
@@ -612,7 +612,7 @@ export default Vue.extend({
         },
         {
           target: '#button-to-vehicle',
-          content: 'This is the main BlueOS menu. Here you can access all the running services and system utilities.',
+          content: 'This is the main CoratiaOS menu. Here you can access all the running services and system utilities.',
           params: {
             enableScrolling: false,
             placement: 'right',
@@ -634,7 +634,7 @@ export default Vue.extend({
         },
         {
           target: '#button-to-tools',
-          content: `Here you can find all kinds of tools to improve your BlueOS experience.
+          content: `Here you can find all kinds of tools to improve your CoratiaOS experience.
           There are system-diagnosis tools, like network-speed tester and others, all under the Tools menu.`,
           params: {
             enableScrolling: false,
@@ -649,7 +649,7 @@ export default Vue.extend({
         },
         {
           target: '#settings-menu-button',
-          content: 'With the settings button, you can customize your BlueOS experience.',
+          content: 'With the settings button, you can customize your CoratiaOS experience.',
           params: {
             enableScrolling: false,
           },
@@ -664,7 +664,7 @@ export default Vue.extend({
         },
         {
           target: '#current-version',
-          content: `You can check the version of BlueOS installed here. This version number is particularly important
+          content: `You can check the version of CoratiaOS installed here. This version number is particularly important
           when looking for help.`,
           params: {
             enableScrolling: false,
@@ -683,7 +683,7 @@ export default Vue.extend({
         },
         {
           target: '#tour-center-hook',
-          content: `That's it! Now we want you to enjoy your experience with BlueOS! Also, don't forget to get in touch
+          content: `That's it! Now we want you to enjoy your experience with CoratiaOS! Also, don't forget to get in touch
           if you need anything else to improve your journey! Happy exploring!`,
           params: {
             enableScrolling: false,
@@ -710,7 +710,7 @@ export default Vue.extend({
       // In an update process the page may not be the 'Main' page, check tour when page changes
       this.checkTour()
       // Env may not exist when running it with `bun vite`
-      const project_name = process.env.PROJECT_NAME ?? 'BlueOS'
+      const project_name = process.env.PROJECT_NAME ?? 'CoratiaOS'
       if (this.$route.name === this.$router.options.routes!.first()!.name) {
         document.title = project_name
         return

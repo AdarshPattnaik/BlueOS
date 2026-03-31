@@ -13,7 +13,7 @@
         elevation="2"
         dismissible
       >
-        This vehicle is running its "factory" version of BlueOS.
+        This vehicle is running its "factory" version of CoratiaOS.
         This generally means something went wrong, and the system reverted to this version
         in order to recover.
         Please file an issue at <a

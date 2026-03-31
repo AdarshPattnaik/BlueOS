@@ -10,7 +10,7 @@ import * as DEFAULT_COLORS from '@/style/colors/default'
 Vue.use(Vuetify)
 
 const baseTheme = {
-  // Default colors used by BlueOS
+  // Default colors used by CoratiaOS
   primary: DEFAULT_COLORS.PRIMARY,
   secondary: DEFAULT_COLORS.SECONDARY,
   accent: DEFAULT_COLORS.ACCENT,
@@ -48,7 +48,7 @@ const vuetify = new Vuetify({
         // Colors common to both themes
         ...baseTheme,
         
-        // BlueOS light theme defaults
+        // CoratiaOS light theme defaults
         sheet_bg: DEFAULT_COLORS.SHEET_LIGHT_BG,
         sheet_bg_complement: DEFAULT_COLORS.SHEET_DARK_BG,
 
@@ -59,7 +59,7 @@ const vuetify = new Vuetify({
         // Colors common to both themes
         ...baseTheme,
         
-        // BlueOS dark theme defaults
+        // CoratiaOS dark theme defaults
         sheet_bg: DEFAULT_COLORS.SHEET_DARK_BG,
         sheet_bg_complement: DEFAULT_COLORS.SHEET_LIGHT_BG,
         

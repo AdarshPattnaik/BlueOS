@@ -71,7 +71,7 @@
           <v-divider style="z-index: 4 !important;" />
         </div>
       </template>
-      <span>This extension is not compatible with current machine architecture running BlueOS.</span>
+      <span>This extension is not compatible with current machine architecture running CoratiaOS.</span>
     </v-tooltip>
     <div class="bottom-gradient-fade" />
     <div class="bottom-gradient" />
