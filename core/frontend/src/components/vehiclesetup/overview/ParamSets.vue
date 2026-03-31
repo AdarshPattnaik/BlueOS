@@ -43,7 +43,8 @@
       </v-card-title>
       <v-card-text>
         <p>
-          These are the recommended parameter sets for your vehicle and firmware version. Curated by Coratia Technologies
+          These are the recommended parameter sets for your vehicle and firmware version.
+          Curated by Coratia Technologies
         </p>
       </v-card-text>
       <v-card-actions>
