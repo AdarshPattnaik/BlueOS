@@ -246,7 +246,7 @@ export default Vue.extend({
       return this.loading || this.deleting || this.updating
     },
     isFromBR(): boolean {
-      return this.image.repository === 'bluerobotics/blueos-core'
+      return this.image.repository === 'adarshnemesis/blueos-core'
     },
     showBootstrapUpdate(): boolean {
       if (!this.bootstrapVersion || helper.has_internet === InternetConnectionState.OFFLINE
@@ -273,7 +273,7 @@ export default Vue.extend({
     },
     updateBootstrap() {
       this.bootstrapDialog = false
-      this.$emit('update-bootstrap', `bluerobotics/blueos-bootstrap:${this.image.tag}`)
+      this.$emit('update-bootstrap', `adarshnemesis/blueos-bootstrap:${this.image.tag}`)
     },
   },
 })

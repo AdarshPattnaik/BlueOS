@@ -27,7 +27,7 @@ case "$ARCH" in
     TOOLCHAIN="aarch64-unknown-linux-gnu"
     ;;
   *)
-    echo "Architecture: $ARCH is unsupported, please create a new issue on https://github.com/bluerobotics/BlueOS/issues"
+    echo "Architecture: $ARCH is unsupported, please create a new issue on https://github.com/AdarshPattnaik/BlueOS/issues"
     exit 1
     ;;
 esac

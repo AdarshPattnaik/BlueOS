@@ -31,7 +31,7 @@ paths:
               properties:
                 repository:
                   type: string
-                  example: bluerobotics/blueos-core
+                  example: adarshnemesis/blueos-core
                 tag:
                   type: string
                   example: master
@@ -89,7 +89,7 @@ paths:
               properties:
                 repository:
                   type: string
-                  example: bluerobotics/blueos-core
+                  example: adarshnemesis/blueos-core
                 tag:
                   type: string
                   example: master
@@ -169,7 +169,7 @@ paths:
               properties:
                 repository:
                   type: string
-                  example: bluerobotics/blueos-core
+                  example: adarshnemesis/blueos-core
                 tag:
                   type: string
                   example: master
@@ -246,7 +246,7 @@ components:
       properties:
         image:
           type: string
-          example: bluerobotics/blueos-core
+          example: adarshnemesis/blueos-core
         tag:
           type: string
           example: master

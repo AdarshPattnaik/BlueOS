@@ -155,7 +155,7 @@
       <h2>Manual upload</h2>
       Use this to upload a .tar docker image. These can be downloaded from
       <a
-        href="https://github.com/bluerobotics/BlueOS/actions/workflows/test-and-deploy.yml"
+        href="https://github.com/AdarshPattnaik/BlueOS/actions/workflows/test-and-deploy.yml"
         target="_blank"
       >Github's CI</a>
       or generated locally using "docker save"
@@ -242,7 +242,7 @@ export default Vue.extend({
     PullProgress,
   },
   data() {
-    const default_repository = 'bluerobotics/blueos-core'
+    const default_repository = 'adarshnemesis/blueos-core'
     return {
       settings,
       bootstrap_version: undefined as (undefined | string),

@@ -31,7 +31,7 @@ export function castString(value: string): any { // eslint-disable-line @typescr
  * @param interval - Time in milliseconds to wait after the previous request is done
 * */
 export function convertGitDescribeToUrl(git_describe: string): string {
-  const user = 'bluerobotics'
+  const user = 'AdarshPattnaik'
   const repository = 'BlueOS'
   const project_url = `https://github.com/${user}/${repository}`
 

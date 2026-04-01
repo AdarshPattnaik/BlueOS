@@ -195,7 +195,7 @@ class VersionChooser:
         except Exception as error:
             logger.critical(f"Warning: {type(error)}: {error}")
 
-        new_image_name = f"bluerobotics/blueos-bootstrap:{tag}"
+        new_image_name = f"adarshnemesis/blueos-bootstrap:{tag}"
 
         image_check = await self.is_valid_version(new_image_name)
         if not image_check[0]:
