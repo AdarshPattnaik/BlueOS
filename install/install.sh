@@ -241,7 +241,7 @@ systemctl enable blueos
 echo "Starting network configuration."
 curl -fsSL $ROOT/install/network/avahi.sh | bash
 
-echo "Automatically Install Extension"
+echo "Automatically Install the Extension"
 docker run -d --net=host -v /root/.config/blueos:/root/.config --name=BlueOS-Water-Linked-DVL --restart=unless-stopped bluerobotics/blueos-water-linked-dvl:v1.0.10
 
 # Following https://systemd.io/BUILDING_IMAGES/
