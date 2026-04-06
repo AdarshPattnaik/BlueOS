@@ -242,7 +242,7 @@ echo "Starting network configuration."
 curl -fsSL $ROOT/install/network/avahi.sh | bash
 
 echo "Automatically Install the Extension"
-docker run -d --net=host -v /root/.config/blueos:/root/.config --name=BlueOS-Water-Linked-DVL --restart=unless-stopped AdarshPattnaik/BlueOS-Water-Linked-DVL:v1.0.10
+docker run -d --net=host -v /root/.config/blueos:/root/.config --name=BlueOS-Water-Linked-DVL --restart=unless-stopped bluerobotics/blueos-water-linked-dvl:v1.0.10
 
 # Following https://systemd.io/BUILDING_IMAGES/
 echo "Restarting machine-id."
