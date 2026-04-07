@@ -262,6 +262,12 @@ jobs:
     # https://github.com/bluerobotics/BlueOS/settings/actions/runners/new
 
     steps:
+      - name: Pre-checkout cleanup
+        run: |
+          # Remove root-owned files left over from previous builds (e.g. .cache from pimod)
+          # These cause EACCES errors during checkout if a previous run didn't complete cleanup
+          sudo rm -rf ${{ github.workspace }}/.cache || true
+
       - name: Install git
         run: sudo apt install -y git
 
